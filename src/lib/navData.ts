@@ -8,9 +8,9 @@ export const navData: NavItem[] = [{
   path: '/panel'
 }, {
   text: 'Pacientes',
-  path: '/pacientes'
+  path: '/panel/pacientes'
 },
 {
   text: 'Calendario',
-  path: '/calendario'
+  path: '/panel/calendario'
 }];

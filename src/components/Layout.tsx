@@ -1,10 +1,14 @@
 import React from "react";
 
 interface Props {
-  children: JSX.Element;
+  children: JSX.Element | JSX.Element[];
 }
 const Layout: React.FC<Props> = ({ children }) => {
-  return <section className="md:p-8 p-4 w-full h-screen bg-white rounded-lg flex flex-col  shadow-sm shadow-white items-center justify-center">{children}</section>;
+  return (
+    <section className=" flex h-screen w-full flex-col items-center justify-center overflow-y-hidden  rounded-lg bg-white p-4 shadow-sm shadow-white md:p-8">
+      {children}
+    </section>
+  );
 };
 
 export default Layout;
