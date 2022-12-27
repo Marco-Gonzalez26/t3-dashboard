@@ -12,7 +12,7 @@ function Pacientes() {
         Pacientes
       </h2>
       {isLoading ? (
-        <div className="h-full flex items-center justify-center">
+        <div className="flex h-full items-center justify-center">
           <Loader />
         </div>
       ) : (
