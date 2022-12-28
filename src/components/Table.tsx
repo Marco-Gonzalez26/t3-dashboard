@@ -86,10 +86,10 @@ export const Table: React.FC<{
                       <button>Editar</button>
                     </td>
                     <td className="whitespace-nowrap px-6 py-4 text-right text-sm font-medium text-gray-700">
-                      <button>Detalles</button>
+                      <Link href={`pacientes/${user.id}`}>Detalles</Link>
                     </td>
                     <td className="whitespace-nowrap px-6 py-4 text-right text-sm font-medium text-red-700">
-                    <button>Eliminar</button>
+                      <button>Eliminar</button>
                     </td>
                   </tr>
                 ))}
