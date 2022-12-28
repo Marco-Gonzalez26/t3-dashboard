@@ -96,7 +96,7 @@ function NavBar() {
         <Bars3Icon
           width={50}
           height={50}
-          className=" absolute  z-50  w-14  cursor-pointer rounded-full  p-2 text-gray-700  md:hidden"
+          className=" absolute  z-50  w-14  cursor-pointer rounded-full  bg-white p-2  text-gray-700 md:hidden "
           onClick={() => {
             setOpen(!open);
             handleMenuClick();
