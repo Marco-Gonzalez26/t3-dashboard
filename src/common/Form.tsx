@@ -9,133 +9,198 @@ const Form = () => {
             <div className="overflow-hidden shadow sm:rounded-md">
               <div className="bg-white px-4 py-5 sm:p-6">
                 <div className="grid grid-cols-6 gap-6">
-                  <div className="col-span-6 sm:col-span-3">
+                  <div className="col-span-6 sm:col-span-2">
                     <label
-                      htmlFor="first-name"
+                      htmlFor="name"
                       className="block text-sm font-medium text-gray-700"
                     >
-                      First name
+                      Nombre Completo
                     </label>
                     <input
                       type="text"
-                      name="first-name"
-                      id="first-name"
+                      name="name"
+                      id="name"
                       autoComplete="given-name"
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      required
                     />
                   </div>
 
-                  <div className="col-span-6 sm:col-span-3">
+                  <div className="col-span-6 sm:col-span-1">
                     <label
-                      htmlFor="last-name"
+                      htmlFor="age"
                       className="block text-sm font-medium text-gray-700"
                     >
-                      Last name
+                      Edad
                     </label>
                     <input
                       type="text"
-                      name="last-name"
-                      id="last-name"
-                      autoComplete="family-name"
+                      name="age"
+                      id="age"
+                      autoComplete="edad"
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      required
                     />
                   </div>
-
-                  <div className="col-span-6 sm:col-span-4">
+                  <div className="col-span-6 sm:col-span-1">
                     <label
-                      htmlFor="email-address"
+                      htmlFor="nacimiento"
                       className="block text-sm font-medium text-gray-700"
                     >
-                      Email address
+                      Fecha de Nacimiento
                     </label>
+
                     <input
                       type="text"
-                      name="email-address"
-                      id="email-address"
-                      autoComplete="email"
+                      name="nacimiento"
+                      id="nacimiento"
+                      autoComplete="edad"
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      required
                     />
+                    <small className="text-gray-500">
+                      {" "}
+                      Ejemplo: 26-06-2002
+                    </small>
                   </div>
-
-                  <div className="col-span-6 sm:col-span-3">
+                  <div className="col-span-6 sm:col-span-1">
                     <label
-                      htmlFor="country"
+                      htmlFor="height"
                       className="block text-sm font-medium text-gray-700"
                     >
-                      Country
-                    </label>
-                    <select
-                      id="country"
-                      name="country"
-                      autoComplete="country-name"
-                      className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                    >
-                      <option>United States</option>
-                      <option>Canada</option>
-                      <option>Mexico</option>
-                    </select>
-                  </div>
-
-                  <div className="col-span-6">
-                    <label
-                      htmlFor="street-address"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Street address
+                      Talla
                     </label>
                     <input
                       type="text"
-                      name="street-address"
-                      id="street-address"
-                      autoComplete="street-address"
+                      name="height"
+                      id="height"
+                      autoComplete="talla"
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      required
                     />
                   </div>
-
-                  <div className="col-span-6 sm:col-span-6 lg:col-span-2">
+                  <div className="col-span-6 sm:col-span-1">
                     <label
-                      htmlFor="city"
+                      htmlFor="weight"
                       className="block text-sm font-medium text-gray-700"
                     >
-                      City
+                      Peso
                     </label>
                     <input
                       type="text"
-                      name="city"
-                      id="city"
-                      autoComplete="address-level2"
+                      name="weight"
+                      id="weight"
+                      autoComplete="peso"
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      required
+                    />
+                  </div>
+                  <div className="col-span-6 sm:col-span-2">
+                    <label
+                      htmlFor="address"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Dirección
+                    </label>
+                    <input
+                      type="text"
+                      name="address"
+                      id="address"
+                      autoComplete="address"
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      required
+                    />
+                  </div>
+
+                  <div className="col-span-6 sm:col-span-1">
+                    <label
+                      htmlFor="pa"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Presión Arterial
+                    </label>
+                    <input
+                      type="text"
+                      name="pa"
+                      id="pa"
+                      autoComplete="pa"
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      required
+                    />
+                  </div>
+                  <div className="col-span-6 sm:col-span-1">
+                    <label
+                      htmlFor="fc"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Frecuencia cardiaca
+                    </label>
+                    <input
+                      type="text"
+                      name="fc"
+                      id="fc"
+                      autoComplete="fc"
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      required
+                    />
+                  </div>
+                  <div className="col-span-6 sm:col-span-1">
+                    <label
+                      htmlFor="satO2"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Saturación de Oxígeno
+                    </label>
+                    <input
+                      type="text"
+                      name="satO2"
+                      id="satO2"
+                      autoComplete="satO2"
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      required
+                    />
+                  </div>
+                  <div className="col-span-6 sm:col-span-2">
+                    <label
+                      htmlFor="tratamiento"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Tratamiento Actual
+                    </label>
+                    <textarea
+                      name="tratamiento"
+                      id="tratamiento"
+                      className="mt-1 block w-full resize-none rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    />
+                  </div>
+
+                  <div className="col-span-6 sm:col-span-4 lg:col-span-2">
+                    <label
+                      htmlFor="primera-cita"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Primera Cita
+                    </label>
+                    <input
+                      type="text"
+                      name="primera-cita"
+                      id="primera-cita"
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
                   </div>
 
                   <div className="col-span-6 sm:col-span-3 lg:col-span-2">
                     <label
-                      htmlFor="region"
+                      htmlFor="control"
                       className="block text-sm font-medium text-gray-700"
                     >
-                      State / Province
+                      Control
                     </label>
                     <input
                       type="text"
-                      name="region"
-                      id="region"
+                      name="control"
+                      id="control"
                       autoComplete="address-level1"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-
-                  <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-                    <label
-                      htmlFor="postal-code"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      ZIP / Postal code
-                    </label>
-                    <input
-                      type="text"
-                      name="postal-code"
-                      id="postal-code"
-                      autoComplete="postal-code"
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
                   </div>
@@ -146,7 +211,7 @@ const Form = () => {
                   type="submit"
                   className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
-                  Save
+                  Guardar
                 </button>
               </div>
             </div>
