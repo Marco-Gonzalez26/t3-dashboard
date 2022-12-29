@@ -35,7 +35,7 @@ function Pacientes() {
       ) : (
         <Table users={[]} isLoading={isLoading} error={error?.message} />
       )}
-      <Modal open={open} setOpen={setOpen}>
+      <Modal open={open} setOpen={setOpen} title="Añade un paciente">
         <Form />
       </Modal>
     </Layout>

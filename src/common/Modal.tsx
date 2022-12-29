@@ -7,14 +7,15 @@ export const Modal: React.FC<{
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   children: JSX.Element | JSX.Element[];
-  
-}> = ({ open, setOpen, children }) => {
+  title?: string
+
+}> = ({ open, setOpen, children, title }) => {
   const cancelButtonRef = useRef(null);
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
         as="div"
-        className="fixed inset-0 z-10 overflow-y-auto"
+        className="fixed inset-0 z-10 overflow-y-auto "
         initialFocus={cancelButtonRef}
         onClose={setOpen}
       >
@@ -45,14 +46,15 @@ export const Modal: React.FC<{
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            <div className="inline-block transform overflow-hidden rounded-lg bg-white text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:align-middle">
-              <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+            <div className="inline-block transform overflow-hidden rounded-lg bg-white text-left align-bottom shadow-xl transition-all sm:my-8  sm:max-w-screen-2xl sm:align-middle">
+              <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 justify-between">
                 <XCircleIcon
                   className="h-6 w-6 flex-shrink-0 cursor-pointer text-gray-400"
                   aria-hidden="true"
                   onClick={() => setOpen(false)}
                   ref={cancelButtonRef}
                 />
+                <h3 className="text-gray-700 text-xl font-bold">{title}</h3>
               </div>
               <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div className="sm:flex sm:items-start">{children}</div>
