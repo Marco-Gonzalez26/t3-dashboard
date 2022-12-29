@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react";
 import Head from "next/head";
 import React from "react";
 import NavBar from "./NavBar";
@@ -7,10 +8,11 @@ interface Props {
 }
 
 const AppLayout: React.FC<Props> = ({ children }) => {
+  const { status } = useSession();
   return (
     <>
       <Head>
-        <title>AlwaysPanel</title>
+        <title>AlwaysPanel | Mantén el orden de tus pacientes</title>
       </Head>
       <main className="flex min-h-screen gap-5  bg-gray-100 p-4 md:flex-col md:p-6">
         <NavBar />

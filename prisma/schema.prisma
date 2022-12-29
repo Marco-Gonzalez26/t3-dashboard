@@ -7,32 +7,41 @@ generator client {
 
 datasource db {
   provider = "mongodb"
-  // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-  // Further reading:
-  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
   url      = env("DATABASE_URL")
 }
 
-model Example {
-  id        String   @map("_id") @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Paciente {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  nombre    String
+  edad        String
+  nacimiento  String
+  direccion   String
+  talla       String
+  pa          String
+  fc          String
+  satO2       String
+  promPa      String?
+  promFc      String?
+  ttoActual   String?
+  primeraCita String?
+  control     String?
+  user        User?   @relation(fields: [userId], references: [id])
+  userId      String? @db.ObjectId
 }
 
 // Necessary for Next auth
 model Account {
-  id                String  @map("_id") @id @default(cuid())
-  userId            String
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? // @db.Text
-  access_token      String? // @db.Text
+  refresh_token     String? @db.String
+  access_token      String? @db.String
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? // @db.Text
+  id_token          String? @db.String
   session_state     String?
   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -40,29 +49,32 @@ model Account {
 }
 
 model Session {
-  id           String   @id @map("_id") @default(cuid())
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
   sessionToken String   @unique
-  userId       String
+  userId       String   @db.ObjectId
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
-  id            String    @id @map("_id") @default(cuid())
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
   name          String?
-  email         String?   @unique
+  email         String?    @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
+  pacientes     Paciente[]
 }
 
 model VerificationToken {
   identifier String
-  token      String   @unique 
+  token      String   @unique
   expires    DateTime
 
-  @@unique([identifier, token])
+  id String @id @default(auto()) @map("_id") @db.ObjectId
 
-    id            String    @id  @default(cuid()) @map("_id")
+  @@unique([identifier, token])
 }

@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import Link from "next/link";
 
-import { navData } from "@lib/navData";
+import { navData, noAuthNavData } from "@lib/navData";
 import {
   Bars3Icon,
   XMarkIcon,
   BuildingOfficeIcon,
 } from "@heroicons/react/24/outline";
+import Auth from "./Auth";
+import { useSession } from "next-auth/react";
 
 function NavBar() {
   const [open, setOpen] = useState<boolean>(false);
+  const { data: session, status } = useSession();
   const [popCard, setPopCard] = useState<string>("hidden");
   const [fade, setFade] = useState<boolean>(false);
 
@@ -24,7 +27,7 @@ function NavBar() {
   };
   return (
     <>
-      <nav className=" hidden  h-12 w-full  items-center justify-around rounded-lg bg-white p-4 md:flex">
+      <nav className=" hidden  h-16 w-full items-center justify-around rounded-lg bg-white p-4 md:flex">
         <Link
           href="/"
           className=" cursor-pointer text-xl font-bold text-gray-700"
@@ -34,19 +37,41 @@ function NavBar() {
             AlwaysPanel
           </span>
         </Link>
-        <ul className="flex gap-5 text-lg font-semibold text-gray-700 ">
-          {navData.map(({ path, text }) => {
-            return (
-              <li
-                key={text}
-                className=" rounded-lg border-2 border-transparent px-2 transition-all hover:border-violet-500"
-              >
-                <Link href={path} className="w-full ">
-                  {text}
-                </Link>
-              </li>
-            );
-          })}
+        <ul className="flex items-center justify-center gap-5 text-lg font-semibold text-gray-700">
+          {status === "authenticated"
+            ? navData.map(({ path, text }) => {
+                return (
+                  <li
+                    key={text}
+                    className=" rounded-lg border-2 border-transparent px-2 transition-all hover:border-violet-500"
+                  >
+                    <Link href={path} className="w-full ">
+                      {text}
+                    </Link>
+                  </li>
+                );
+              })
+            : noAuthNavData.map(({ id, text }) => {
+                return (
+                  <li
+                    key={text}
+                    className=" rounded-lg border-2 border-transparent px-2 transition-all hover:border-violet-500"
+                  >
+                    <a href={id} className="w-full ">
+                      {text}
+                    </a>
+                  </li>
+                );
+              })}
+
+          <Auth />
+          {session?.user && (
+            <div className="flex gap-2 text-sm items-center">
+              <div className="h-8 w-8 rounded-full bg-gradient-to-b from-cyan-500 to-violet-500" />
+
+              <p>{session.user.name}</p>
+            </div>
+          )}
         </ul>
       </nav>
       {open && (
@@ -89,6 +114,7 @@ function NavBar() {
                 </Link>
               );
             })}
+            <Auth />
           </ul>
         </div>
       )}

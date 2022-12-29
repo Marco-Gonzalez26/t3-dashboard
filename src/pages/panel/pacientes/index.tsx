@@ -5,7 +5,10 @@ import { trpc } from "@utils/trpc";
 
 function Pacientes() {
   const { data, isLoading, error } = trpc.users.getAll.useQuery();
+  const createPatient = trpc.users.create.useMutation()
 
+  createPatient.mutate({})
+  console.log(data)
   return (
     <Layout>
       <h2 className=" mb-4 text-2xl font-extrabold text-gray-700 md:text-4xl">
@@ -16,7 +19,7 @@ function Pacientes() {
           <Loader />
         </div>
       ) : (
-        <Table users={data} isLoading={isLoading} error={error?.message} />
+        <Table users={[]} isLoading={isLoading} error={error?.message} />
       )}
     </Layout>
   );
