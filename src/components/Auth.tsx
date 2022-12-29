@@ -1,10 +1,9 @@
 import React from "react";
 import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
 import { signIn, signOut, useSession } from "next-auth/react";
-import Router from "next/router";
 
 const Auth: React.FC = () => {
-  const { data: sessionData, status } = useSession();
+  const { status } = useSession();
 
   const handleSingIn = async () => {
     await signIn("google", { redirect: true, callbackUrl: "/panel" });

@@ -1,4 +1,3 @@
-import { useSession } from "next-auth/react";
 import Head from "next/head";
 import React from "react";
 import NavBar from "./NavBar";
@@ -8,7 +7,6 @@ interface Props {
 }
 
 const AppLayout: React.FC<Props> = ({ children }) => {
-  const { status } = useSession();
   return (
     <>
       <Head>

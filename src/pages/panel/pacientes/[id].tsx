@@ -1,6 +1,6 @@
 import React from "react";
 import { GetServerSideProps } from "next";
-import { User } from "../../../types/user";
+import type { User } from "../../../types/user";
 import Layout from "@components/Layout";
 import DescriptionList from "@components/DescriptionList";
 

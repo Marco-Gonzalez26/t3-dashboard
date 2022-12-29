@@ -1,5 +1,4 @@
 import React from "react";
-import { PaperClipIcon } from "@heroicons/react/20/solid";
 import { User } from "../types/user";
 
 const DescriptionList: React.FC<{ user: User }> = ({ user }) => {

@@ -1,20 +1,12 @@
 import Layout from "@components/Layout";
 
 import { UsersIcon, CalendarIcon } from "@heroicons/react/24/outline";
-import { useSession } from "next-auth/react";
+
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 const Dashboard = () => {
-  const { data: sessionData } = useSession();
   const router = useRouter();
-
-  // useEffect(() => {
-  //   if (!sessionData?.user) {
-  //     router.isReady && router.push("/login");
-  //   }
-  // }, [sessionData]);
 
   return (
     <Layout>

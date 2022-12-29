@@ -1,7 +1,7 @@
 import React from "react";
-import { PlusIcon, XCircleIcon } from "@heroicons/react/20/solid";
+
 import { User } from "types/user";
-import Loader from "./Loader";
+
 import Link from "next/link";
 
 export const Table: React.FC<{
@@ -16,7 +16,7 @@ export const Table: React.FC<{
 
         <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
           <div className="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
-          {users.length === 0 && <h1>No hay pacientes :(</h1>}
+            {users.length === 0 && <h1>No hay pacientes :(</h1>}
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50 ">
                 <tr className="w-full">
@@ -47,7 +47,6 @@ export const Table: React.FC<{
                 </tr>
               </thead>
               <tbody className=" min-h-screen flex-col divide-y divide-gray-200 bg-white">
-
                 {users?.map((user) => (
                   <tr
                     className="transition-all duration-150 hover:bg-slate-100"

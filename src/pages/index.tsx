@@ -3,12 +3,11 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 
-import Auth from "@components/Auth";
+
 import Layout from "@components/Layout";
-import { trpc } from "../utils/trpc";
+
 import Link from "next/link";
-import { useEffect } from "react";
-import Loader from "@components/Loader";
+
 
 const Home: NextPage = () => {
   const { status } = useSession();

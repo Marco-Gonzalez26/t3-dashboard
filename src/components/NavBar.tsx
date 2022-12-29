@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 
 import { navData, noAuthNavData } from "@lib/navData";
@@ -66,7 +66,7 @@ function NavBar() {
 
           <Auth />
           {session?.user && (
-            <div className="flex gap-2 text-sm items-center">
+            <div className="flex items-center gap-2 text-sm">
               <div className="h-8 w-8 rounded-full bg-gradient-to-b from-cyan-500 to-violet-500" />
 
               <p>{session.user.name}</p>
