@@ -19,15 +19,24 @@ export type User = {
   phone: string;
 };
 
-export type Paciente = {
+export type PacienteFromDB = {
   nombre: string;
-  edad: number;
+  direccion: string;
+  telefono: string;
+  id?: string;
+};
+export type Paciente = {
+  id?: string;
+  nombre: string;
+  edad: string;
   nacimiento: string;
+  telefono: string;
   direccion: string;
   talla: string;
+  peso: string;
   pa: string;
-  fc: number;
-  satO2: number;
+  fc: string;
+  satO2: string;
   promPa?: string;
   promFc?: string;
   ttoActual?: string;

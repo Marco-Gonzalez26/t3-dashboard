@@ -12,11 +12,13 @@ datasource db {
 
 model Paciente {
   id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  nombre    String
+  nombre      String
+  telefono    String
   edad        String
   nacimiento  String
   direccion   String
   talla       String
+  peso        String
   pa          String
   fc          String
   satO2       String
@@ -25,8 +27,8 @@ model Paciente {
   ttoActual   String?
   primeraCita String?
   control     String?
-  user        User?   @relation(fields: [userId], references: [id])
-  userId      String? @db.ObjectId
+  user        User   @relation(fields: [userId], references: [id])
+  userId      String @db.ObjectId
 }
 
 // Necessary for Next auth
