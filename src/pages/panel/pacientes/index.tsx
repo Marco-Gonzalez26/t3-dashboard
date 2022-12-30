@@ -13,11 +13,14 @@ import type { PacienteFromDB } from "types/user";
 function Pacientes() {
   const [open, setOpen] = useState<boolean>(false);
   const [patients, setPatients] = useState<PacienteFromDB[] | undefined>([]);
+  const { data, isLoading, error, refetch } = trpc.users.getAll.useQuery();
 
-  const { data, isLoading, error } = trpc.users.getAll.useQuery();
   useEffect(() => {
-    setPatients(data);
-  });
+    if (!isLoading) {
+      setPatients(data);
+      refetch();
+    }
+  }, [patients, data]);
   return (
     <Layout>
       <h2 className=" mb-4 text-2xl font-extrabold text-gray-700 md:text-4xl">

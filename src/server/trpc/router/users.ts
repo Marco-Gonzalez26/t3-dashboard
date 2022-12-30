@@ -9,6 +9,11 @@ export const userRouter = router({
       where: {
         userId: ctx.session.user.id,
       },
+      orderBy: [
+        {
+          nombre: "desc",
+        },
+      ],
       select: {
         nombre: true,
         direccion: true,
@@ -58,11 +63,10 @@ export const userRouter = router({
           userId: ctx.session.user.id,
         },
         select: {
-          
           id: true,
           nombre: true,
           direccion: true,
-          telefono: true
+          telefono: true,
         },
       });
 

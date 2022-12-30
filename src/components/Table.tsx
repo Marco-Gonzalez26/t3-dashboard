@@ -16,14 +16,14 @@ export const Table: React.FC<{
 
         <div className=" flex min-h-full min-w-full py-2 align-middle sm:px-6 lg:px-8">
           {patients?.length === 0 ? (
-            <div className="grid place-items-center">
-              <h1 className="text-center align-middle text-4xl font-bold text-gray-400">
+            <div className="grid w-full place-items-center">
+              <h1 className="text-center align-middle text-4xl font-bold text-gray-400 ">
                 No hay pacientes :(
               </h1>
               <UserGroupIcon className="h-52 w-52 text-gray-400" />
             </div>
           ) : (
-            <div className="min-w-full overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
+            <div className="min-w-full overflow-auto border-b border-gray-200 shadow sm:rounded-lg">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50 ">
                   <tr className="w-full">

@@ -10,7 +10,7 @@ const resolver: Resolver<Paciente> = async (values) => {
       ? {
           nombre: {
             type: "required",
-            message: "This is required.",
+            message: "Este campo es requerido.",
           },
         }
       : {},
@@ -41,7 +41,7 @@ const Form: React.FC<{
           const { paciente } = data;
           setPatients((prevPatients) => {
             const prev: PacienteFromDB[] = prevPatients || [];
-            
+
             return [...prev, paciente];
           });
         },
@@ -58,9 +58,6 @@ const Form: React.FC<{
         createPatientMutation.data.paciente
       );
     }
-    refetch({ exact: true, fetchStatus: "fetching" }).then(() =>
-      console.log("refetching...")
-    );
   });
   return (
     <div className="mt-10 sm:mt-0">
