@@ -1,24 +1,3 @@
-export type User = {
-  id: number;
-  username: string;
-  password: string;
-  name: {
-    firstname: string;
-    lastname: string;
-  };
-  address: {
-    city: string;
-    street: string;
-    number: number;
-    zipcode: string;
-  };
-  geolocation: {
-    lat: string;
-    long: string;
-  };
-  phone: string;
-};
-
 export type PacienteFromDB = {
   nombre: string;
   direccion: string;
@@ -37,9 +16,9 @@ export type Paciente = {
   pa: string;
   fc: string;
   satO2: string;
-  promPa?: string;
-  promFc?: string;
-  ttoActual?: string;
-  primeraCita?: string;
-  control?: string;
+  promPa?: string | null;
+  promFc?: string | null;
+  ttoActual?: string | null;
+  primeraCita?: string |null;
+  control?: string | null;
 };

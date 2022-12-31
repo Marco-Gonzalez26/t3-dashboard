@@ -1,5 +1,5 @@
 import React from "react";
-import type { Paciente } from "../types/user";
+import type { Paciente } from "types/user";
 
 const DescriptionList: React.FC<{ patient: Paciente | null | undefined }> = ({
   patient,
