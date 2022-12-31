@@ -22,7 +22,7 @@ model Paciente {
   pa          String
   fc          String
   satO2       String
-  promPa      String?
+  promPa      String? 
   promFc      String?
   ttoActual   String?
   primeraCita String?

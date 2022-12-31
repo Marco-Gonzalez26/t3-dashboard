@@ -10,15 +10,17 @@ export const Table: React.FC<{
   isLoading: boolean;
   error: string | undefined;
 }> = ({ patients }) => {
+
   const deletePatient = trpc.users.delete.useMutation();
   const queryName = trpc.users.getAll.useQuery.name;
   const { refetch } = trpc.users.getAll.useQuery();
+
   return (
     <>
       <div className="my-2 h-full w-full overflow-hidden sm:-mx-6 lg:-mx-8">
         {/* <Pagination offset={offset} setOffset={setOffSet} /> */}
 
-        <div className=" flex min-h-full min-w-full py-2  sm:px-6 lg:px-8">
+        <div className="  min-h-full min-w-screen py-2  sm:px-6 lg:px-8">
           {patients?.length === 0 ? (
             <div className="grid w-full  h-screen justify-center items-start">
               <h1 className="align-middle text-4xl font-bold text-gray-400 ">

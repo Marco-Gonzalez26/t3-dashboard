@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { PlusIcon, UserPlusIcon } from "@heroicons/react/24/outline";
+import { UserPlusIcon } from "@heroicons/react/24/outline";
 
 import { trpc } from "@utils/trpc";
 

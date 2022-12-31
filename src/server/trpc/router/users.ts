@@ -53,11 +53,11 @@ export const userRouter = router({
         pa: z.string(),
         fc: z.string(),
         satO2: z.string(),
-        promPa: z.string().optional(),
-        promFc: z.string().optional(),
-        ttoActual: z.string().optional(),
-        primeraCita: z.string().optional(),
-        control: z.string().optional(),
+        promPa: z.string().optional().nullable(),
+        promFc: z.string().optional().nullable(),
+        ttoActual: z.string().optional().nullable(),
+        primeraCita: z.string().optional().nullable(),
+        control: z.string().optional().nullable(),
       })
     )
     .mutation(async ({ input, ctx }) => {
