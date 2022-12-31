@@ -24,6 +24,7 @@ const Form: React.FC<{
   >;
 }> = ({ setOpen, setPatients }) => {
   const { refetch } = trpc.users.getAll.useQuery();
+  const queryKey = trpc.users.getAll.useQuery.name;
   const createPatientMutation = trpc.users.create.useMutation();
   const {
     register,
@@ -40,24 +41,13 @@ const Form: React.FC<{
         onSuccess(data) {
           const { paciente } = data;
           setPatients((prevPatients) => {
+            refetch({ exact: true, queryKey: [queryKey] });
             const prev: PacienteFromDB[] = prevPatients || [];
-
             return [...prev, paciente];
           });
         },
       }
     );
-
-    if (createPatientMutation.error) {
-      console.error(createPatientMutation.error.message);
-    }
-
-    if (createPatientMutation.data) {
-      console.log(
-        "Paciente creado exitosamente!",
-        createPatientMutation.data.paciente
-      );
-    }
   });
   return (
     <div className="mt-10 sm:mt-0">

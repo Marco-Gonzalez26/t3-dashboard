@@ -1,31 +1,23 @@
 import React from "react";
 import { GetServerSideProps } from "next";
-import type { User } from "../../../types/user";
+
 import Layout from "@components/Layout";
 import DescriptionList from "@components/DescriptionList";
+import { trpc } from "@utils/trpc";
+import { useRouter } from "next/router";
 
-const Pacientes: React.FC<{ user: User }> = ({ user }) => {
+const Pacientes = () => {
+  const { query } = useRouter();
+  const { data, isLoading, error } = trpc.users.getUserById.useQuery(query?.id);
+
   return (
     <Layout>
       <h2 className=" mb-4 text-left text-2xl font-extrabold text-gray-700 md:text-4xl">
-        Paciente #{user.id}
+        Paciente #{data?.id}
       </h2>
-      <DescriptionList user={user} />
+      {/* <DescriptionList /> */}
     </Layout>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { params } = context;
-
-  const res = await fetch(`https://fakestoreapi.com/users/${params?.id}`);
-  const data = await res.json();
-
-  return {
-    props: {
-      user: data,
-    }, // will be passed to the page component as props
-  };
 };
 
 export default Pacientes;

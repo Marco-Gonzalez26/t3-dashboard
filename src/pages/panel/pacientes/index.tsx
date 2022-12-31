@@ -14,13 +14,16 @@ function Pacientes() {
   const [open, setOpen] = useState<boolean>(false);
   const [patients, setPatients] = useState<PacienteFromDB[] | undefined>([]);
   const { data, isLoading, error, refetch } = trpc.users.getAll.useQuery();
+  const queryKey = trpc.users.getAll.useQuery.name;
+
+  console.log({ patients });
+
 
   useEffect(() => {
-    if (!isLoading) {
-      setPatients(data);
-      refetch();
-    }
+
+    setPatients(data);
   }, [patients, data]);
+
   return (
     <Layout>
       <h2 className=" mb-4 text-2xl font-extrabold text-gray-700 md:text-4xl">

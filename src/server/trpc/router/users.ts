@@ -11,7 +11,7 @@ export const userRouter = router({
       },
       orderBy: [
         {
-          nombre: "desc",
+          nombre: "asc",
         },
       ],
       select: {
@@ -21,6 +21,14 @@ export const userRouter = router({
         id: true,
       },
     });
+  }),
+  getUserById: protectedProcedure.input(z.any()).query(async ({ctx, input}) => {
+    return await ctx.prisma.paciente.findFirst({
+      where: {
+        userId: ctx.session.user.id,
+        id: input
+      }
+    })
   }),
   create: protectedProcedure
     .input(
@@ -70,6 +78,6 @@ export const userRouter = router({
         },
       });
 
-      return { success: true, paciente: paciente };
-    }),
+      return await { success: true, paciente: paciente };
+    })
 });

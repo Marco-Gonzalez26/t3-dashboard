@@ -1,5 +1,5 @@
 import React from "react";
-import { User } from "../types/user";
+import { User, Paciente } from "../types/user";
 
 const DescriptionList: React.FC<{ user: User }> = ({ user }) => {
   return (
