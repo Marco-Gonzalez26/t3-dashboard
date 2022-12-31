@@ -3,30 +3,33 @@ import React from "react";
 import type { PacienteFromDB } from "types/user";
 import { UserGroupIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { trpc } from "@utils/trpc";
 
 export const Table: React.FC<{
   patients: PacienteFromDB[] | undefined;
   isLoading: boolean;
   error: string | undefined;
 }> = ({ patients }) => {
+  const deletePatient = trpc.users.delete.useMutation();
+  const queryName = trpc.users.getAll.useQuery.name;
+  const { refetch } = trpc.users.getAll.useQuery();
   return (
     <>
-      <div className="my-2 h-full w-full overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div className="my-2 h-full w-full overflow-hidden sm:-mx-6 lg:-mx-8">
         {/* <Pagination offset={offset} setOffset={setOffSet} /> */}
 
-        <div className=" flex min-h-full min-w-full py-2 align-middle sm:px-6 lg:px-8">
+        <div className=" flex min-h-full min-w-full py-2  sm:px-6 lg:px-8">
           {patients?.length === 0 ? (
-            <div className="grid w-full place-items-center">
-              <h1 className="text-center align-middle text-4xl font-bold text-gray-400 ">
+            <div className="grid w-full  h-screen justify-center items-start">
+              <h1 className="align-middle text-4xl font-bold text-gray-400 ">
                 No hay pacientes :(
               </h1>
-              <UserGroupIcon className="h-52 w-52 text-gray-400" />
             </div>
           ) : (
-            <div className="min-w-full overflow-auto border-b border-gray-200 shadow sm:rounded-lg">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50 ">
-                  <tr className="w-full">
+            <div className="min-w-screen  overflow-x-auto border-b border-gray-200 shadow sm:rounded-lg flex">
+              <table className="min-h-full min-w-full divide-y divide-gray-200">
+                <thead className="sticky top-0 bg-gray-50">
+                  <tr className="w-full ">
                     <th
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 "
@@ -88,7 +91,22 @@ export const Table: React.FC<{
                         <Link href={`pacientes/${user.id}`}>Detalles</Link>
                       </td>
                       <td className="whitespace-nowrap px-6 py-4 text-right text-sm font-medium text-red-700">
-                        <button>Eliminar</button>
+                        <button
+                          onClick={() => {
+                            deletePatient.mutate(user.id, {
+                              onSuccess() {
+                                refetch({ exact: true, queryKey: [queryName] });
+                                console.log(
+                                  "paciente  " +
+                                    user.id +
+                                    "eliminado correctamente"
+                                );
+                              },
+                            });
+                          }}
+                        >
+                          Eliminar
+                        </button>
                       </td>
                     </tr>
                   ))}

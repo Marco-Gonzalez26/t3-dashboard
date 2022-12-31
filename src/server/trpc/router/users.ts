@@ -9,6 +9,7 @@ export const userRouter = router({
       where: {
         userId: ctx.session.user.id,
       },
+
       orderBy: [
         {
           nombre: "asc",
@@ -22,13 +23,22 @@ export const userRouter = router({
       },
     });
   }),
-  getUserById: protectedProcedure.input(z.any()).query(async ({ctx, input}) => {
-    return await ctx.prisma.paciente.findFirst({
+  getUserById: protectedProcedure
+    .input(z.any())
+    .query(async ({ ctx, input }) => {
+      return await ctx.prisma.paciente.findFirst({
+        where: {
+          userId: ctx.session.user.id,
+          id: input,
+        },
+      });
+    }),
+  delete: protectedProcedure.input(z.any()).mutation(async ({ ctx, input }) => {
+    return await ctx.prisma.paciente.delete({
       where: {
-        userId: ctx.session.user.id,
-        id: input
-      }
-    })
+        id: input,
+      },
+    });
   }),
   create: protectedProcedure
     .input(
@@ -79,5 +89,5 @@ export const userRouter = router({
       });
 
       return await { success: true, paciente: paciente };
-    })
+    }),
 });

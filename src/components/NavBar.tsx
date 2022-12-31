@@ -102,18 +102,31 @@ function NavBar() {
                 }}
               />
             </div>
-            {navData.map(({ path, text }) => {
-              return (
-                <Link
-                  href={path}
-                  className="w-full cursor-pointer rounded-lg border-2 border-transparent p-2 transition-all hover:border-violet-300 hover:opacity-90"
-                  key={text}
-                  onClick={() => setOpen(false)}
-                >
-                  <li>{text}</li>
-                </Link>
-              );
-            })}
+            {status === "authenticated"
+              ? navData.map(({ path, text }) => {
+                  return (
+                    <Link
+                      href={path}
+                      className="w-full cursor-pointer rounded-lg border-2 border-transparent p-2 transition-all hover:border-violet-300 hover:opacity-90"
+                      key={text}
+                      onClick={() => setOpen(false)}
+                    >
+                      <li>{text}</li>
+                    </Link>
+                  );
+                })
+              : noAuthNavData.map(({ id, text }) => {
+                  return (
+                    <li
+                      key={text}
+                      className=" rounded-lg border-2 border-transparent px-2 transition-all hover:border-violet-500"
+                    >
+                      <a href={id} className="w-full ">
+                        {text}
+                      </a>
+                    </li>
+                  );
+                })}
             <Auth />
           </ul>
         </div>

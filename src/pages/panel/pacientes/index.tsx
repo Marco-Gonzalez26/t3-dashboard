@@ -14,41 +14,39 @@ function Pacientes() {
   const [open, setOpen] = useState<boolean>(false);
   const [patients, setPatients] = useState<PacienteFromDB[] | undefined>([]);
   const { data, isLoading, error, refetch } = trpc.users.getAll.useQuery();
-  const queryKey = trpc.users.getAll.useQuery.name;
-
-  console.log({ patients });
-
 
   useEffect(() => {
-
     setPatients(data);
   }, [patients, data]);
 
   return (
     <Layout>
-      <h2 className=" mb-4 text-2xl font-extrabold text-gray-700 md:text-4xl">
-        Pacientes
-      </h2>
-      <span className="flex w-full items-center justify-end sm:ml-3">
-        <button
-          type="button"
-          className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          onClick={() => setOpen(!open)}
-        >
-          <UserPlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-          Añadir Paciente
-        </button>
-      </span>
       {isLoading ? (
         <div className="flex h-full items-center justify-center">
           <Loader />
         </div>
       ) : (
-        <Table
-          patients={patients}
-          isLoading={isLoading}
-          error={error?.message}
-        />
+        <>
+          <h2 className=" mb-4 text-2xl font-extrabold text-gray-700 md:text-4xl">
+            Pacientes
+          </h2>
+          <span className="flex w-4/5 items-center justify-end sm:ml-3">
+            <button
+              type="button"
+              className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              onClick={() => setOpen(!open)}
+            >
+              <UserPlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+              Añadir Paciente
+            </button>
+          </span>
+
+          <Table
+            patients={patients}
+            isLoading={isLoading}
+            error={error?.message}
+          />
+        </>
       )}
       <Modal open={open} setOpen={setOpen} title="Añade un paciente">
         <Form setOpen={setOpen} setPatients={setPatients} />
