@@ -10,48 +10,56 @@ import { Modal } from "common/Modal";
 import { DialogNotification } from "common/DialogNotification";
 import { Table } from "@components/Table";
 import type { PacienteFromDB } from "types/user";
+import { Pagination } from "@components/Pagination";
 
 function Pacientes() {
   const [open, setOpen] = useState<boolean>(false);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [patients, setPatients] = useState<PacienteFromDB[] | undefined>([]);
-  const { data, isLoading, error, refetch } = trpc.users.getAll.useQuery();
+  const [offset, setOffset] = useState<number>(0);
+
+  const { data, isLoading, error, refetch } =
+    trpc.users.getAll.useQuery(offset);
   const queryName = trpc.users.getAll.useQuery.name;
+  const patientLength = data?.count;
 
   useEffect(() => {
     refetch({ queryKey: [queryName] }).then(() => {
-      setPatients(data);
+      setPatients(data?.patients);
     });
   }, [patients, data]);
 
   return (
     <Layout>
+      <h2 className=" mb-4 text-3xl font-extrabold text-gray-700 md:text-4xl">
+        Pacientes
+      </h2>
+      <span className="flex w-4/5 items-center justify-end sm:ml-3">
+        <button
+          type="button"
+          className="inline-flex items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+          onClick={() => setOpen(!open)}
+        >
+          <UserPlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+          Añadir Paciente
+        </button>
+      </span>
+      <Pagination
+        setOffset={setOffset}
+        offset={offset}
+        isPatientsLoading={isLoading}
+        patientLength={patientLength}
+      />
       {isLoading ? (
         <div className="flex h-screen w-full items-center justify-center">
           <Loader />
         </div>
       ) : (
-        <>
-          <h2 className=" mb-4 text-3xl font-extrabold text-gray-700 md:text-4xl">
-            Pacientes
-          </h2>
-          <span className="flex w-4/5 items-center justify-end sm:ml-3">
-            <button
-              type="button"
-              className="inline-flex items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-              onClick={() => setOpen(!open)}
-            >
-              <UserPlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-              Añadir Paciente
-            </button>
-          </span>
-
-          <Table
-            patients={patients}
-            isLoading={isLoading}
-            error={error?.message}
-          />
-        </>
+        <Table
+          patients={patients}
+          isLoading={isLoading}
+          error={error?.message}
+        />
       )}
       <Modal open={open} setOpen={setOpen} title="Añade un paciente">
         <Form
@@ -60,12 +68,6 @@ function Pacientes() {
           setOpenDialog={setOpenDialog}
         />
       </Modal>
-      <DialogNotification
-        open={openDialog}
-        setOpen={setOpenDialog}
-        title={"Paciente creado exitosamente!"}
-        description="Paciente creado y agreado a la base de datos exitosamente!"
-      />
     </Layout>
   );
 }

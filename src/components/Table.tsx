@@ -17,7 +17,7 @@ export const Table: React.FC<{
   return (
     <>
       <div className="my-2 h-full w-full overflow-hidden sm:-mx-6 lg:-mx-8">
-        {/* <Pagination offset={offset} setOffset={setOffSet} /> */}
+
 
         <div className="  min-w-screen min-h-full py-2  sm:px-6 lg:px-8">
           {patients?.length === 0 ? (

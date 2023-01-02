@@ -4,28 +4,39 @@ import { router, protectedProcedure } from "../trpc";
 import { prisma } from "../../db/client";
 
 export const userRouter = router({
-  getAll: protectedProcedure.query(async ({ ctx }) => {
-    return await ctx.prisma.paciente.findMany({
-      where: {
-        userId: ctx.session.user.id,
-      },
-
-      orderBy: [
-        {
-          nombre: "asc",
+  getAll: protectedProcedure
+    .input(z.number().optional())
+    .query(async ({ ctx, input }) => {
+      const count = await ctx.prisma.paciente.count({
+        where: {
+          userId: ctx.session.user.id,
         },
-      ],
-      select: {
-        nombre: true,
-        direccion: true,
-        telefono: true,
-        id: true,
-      },
-    });
-  }),
+      });
+      const patients = await ctx.prisma.paciente.findMany({
+        take: 10,
+        skip: input,
+        where: {
+          userId: ctx.session.user.id,
+        },
+
+        orderBy: [
+          {
+            nombre: "asc",
+          },
+        ],
+        select: {
+          nombre: true,
+          direccion: true,
+          telefono: true,
+          id: true,
+        },
+      });
+      return {patients, count}
+    }),
   getUserById: protectedProcedure
     .input(z.any())
     .query(async ({ ctx, input }) => {
+      ctx.prisma.paciente.count({ where: {} });
       return await ctx.prisma.paciente.findFirst({
         where: {
           userId: ctx.session.user.id,
