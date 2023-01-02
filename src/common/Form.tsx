@@ -19,10 +19,11 @@ const resolver: Resolver<Paciente> = async (values) => {
 
 const Form: React.FC<{
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenDialog: React.Dispatch<React.SetStateAction<boolean>>;
   setPatients: React.Dispatch<
     React.SetStateAction<PacienteFromDB[] | undefined>
   >;
-}> = ({ setOpen, setPatients }) => {
+}> = ({ setOpen, setPatients, setOpenDialog }) => {
   const { refetch } = trpc.users.getAll.useQuery();
   const queryKey = trpc.users.getAll.useQuery.name;
   const createPatientMutation = trpc.users.create.useMutation();
@@ -51,6 +52,8 @@ const Form: React.FC<{
             });
 
             console.log("Paciente agregado exitosamente!");
+
+            setOpenDialog(true);
           }
 
           refetch({ exact: true, queryKey: [queryKey] });

@@ -7,20 +7,20 @@ import Layout from "@components/Layout";
 import Loader from "@components/Loader";
 import Form from "common/Form";
 import { Modal } from "common/Modal";
+import { DialogNotification } from "common/DialogNotification";
 import { Table } from "@components/Table";
 import type { PacienteFromDB } from "types/user";
 
 function Pacientes() {
   const [open, setOpen] = useState<boolean>(false);
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [patients, setPatients] = useState<PacienteFromDB[] | undefined>([]);
   const { data, isLoading, error, refetch } = trpc.users.getAll.useQuery();
   const queryName = trpc.users.getAll.useQuery.name;
-  
 
   useEffect(() => {
     refetch({ queryKey: [queryName] }).then(() => {
       setPatients(data);
-      console.log("re-fetched");
     });
   }, [patients, data]);
 
@@ -54,8 +54,18 @@ function Pacientes() {
         </>
       )}
       <Modal open={open} setOpen={setOpen} title="Añade un paciente">
-        <Form setOpen={setOpen} setPatients={setPatients} />
+        <Form
+          setOpen={setOpen}
+          setPatients={setPatients}
+          setOpenDialog={setOpenDialog}
+        />
       </Modal>
+      <DialogNotification
+        open={openDialog}
+        setOpen={setOpenDialog}
+        title={"Paciente creado exitosamente!"}
+        description="Paciente creado y agreado a la base de datos exitosamente!"
+      />
     </Layout>
   );
 }
