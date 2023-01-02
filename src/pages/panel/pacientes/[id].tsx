@@ -14,15 +14,13 @@ const Pacientes = () => {
   return (
     <Layout>
       {isLoading ? (
-        <div className="flex h-full items-center justify-center">
+        <div className="flex h-screen w-screen items-center justify-center">
           <Loader />
         </div>
       ) : (
         <>
-          <h2 className=" mb-4 text-left text-2xl font-extrabold text-gray-700 md:text-4xl">
-            Paciente {data?.nombre}
-          </h2>
-          <span className="mb-5 flex w-[95%] items-center justify-start sm:ml-3">
+
+          <span className="flex w-[90%] items-center justify-start sm:ml-3 ">
             <button
               type="button"
               className="inline-flex items-center rounded-md border border-transparent bg-gray-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"

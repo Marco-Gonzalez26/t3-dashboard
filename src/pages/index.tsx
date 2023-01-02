@@ -27,7 +27,7 @@ const Home: NextPage = () => {
       </Head>
       <Layout>
         <div
-          className="flex h-full w-full flex-col  items-center justify-start
+          className="flex min-h-screen w-full flex-col  items-center justify-start
         rounded bg-gradient-to-tr from-blue-50 to-violet-50 md:justify-center"
         >
           <h1 className="mt-10 text-center text-3xl font-bold text-gray-800 md:mt-0 md:text-7xl">

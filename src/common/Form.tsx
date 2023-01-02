@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { trpc } from "@utils/trpc";
 import type { Paciente, PacienteFromDB } from "../types/user";
 import { useForm, Resolver } from "react-hook-form";
@@ -26,25 +26,34 @@ const Form: React.FC<{
   const { refetch } = trpc.users.getAll.useQuery();
   const queryKey = trpc.users.getAll.useQuery.name;
   const createPatientMutation = trpc.users.create.useMutation();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Paciente>({ resolver });
 
-  const onSubmit = handleSubmit((data) => {
-    createPatientMutation.mutate(
+  const onSubmit = handleSubmit(async (data) => {
+    await createPatientMutation.mutate(
       {
         ...data,
       },
+
       {
-        onSuccess(data) {
-          const { paciente } = data;
-          setPatients((prevPatients) => {
-            refetch({ exact: true, queryKey: [queryKey] });
-            const prev: PacienteFromDB[] = prevPatients || [];
-            return [...prev, paciente];
-          });
+        onSettled(data) {
+          if (data) {
+            const { paciente } = data;
+            setOpen(false);
+            setPatients((prevPatients) => {
+              const prev: PacienteFromDB[] = prevPatients || [];
+
+              return [...prev, paciente];
+            });
+
+            console.log("Paciente agregado exitosamente!");
+          }
+
+          refetch({ exact: true, queryKey: [queryKey] });
         },
       }
     );
@@ -53,7 +62,7 @@ const Form: React.FC<{
     <div className="mt-10 sm:mt-0">
       <div className="md:grid md:grid-cols-3 md:gap-6">
         <div className="mt-5 md:col-span-3 md:mt-0">
-          <form action="#" method="POST" onSubmit={onSubmit}>
+          <form onSubmit={onSubmit}>
             <div className="overflow-hidden shadow sm:rounded-md">
               <div className="bg-white px-4 py-5 sm:p-6">
                 <div className="grid grid-cols-6 gap-6">
@@ -274,9 +283,6 @@ const Form: React.FC<{
                   type="submit"
                   className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:bg-gray-500"
                   disabled={createPatientMutation.isLoading}
-                  onClick={() => {
-                    setOpen(false);
-                  }}
                 >
                   Guardar
                 </button>

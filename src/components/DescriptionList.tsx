@@ -5,7 +5,7 @@ const DescriptionList: React.FC<{ patient: Paciente | null | undefined }> = ({
   patient,
 }) => {
   return (
-    <div className="h-full overflow-hidden bg-white shadow sm:rounded-lg">
+    <div className=" mt-5 h-full overflow-hidden bg-white shadow-xl shadow-blue-100 sm:rounded-lg">
       <div className="px-4 py-5 sm:px-6">
         <h3 className="text-lg font-medium leading-6 text-gray-900">
           Información del paciente

@@ -10,7 +10,6 @@ export const Table: React.FC<{
   isLoading: boolean;
   error: string | undefined;
 }> = ({ patients }) => {
-
   const deletePatient = trpc.users.delete.useMutation();
   const queryName = trpc.users.getAll.useQuery.name;
   const { refetch } = trpc.users.getAll.useQuery();
@@ -20,15 +19,15 @@ export const Table: React.FC<{
       <div className="my-2 h-full w-full overflow-hidden sm:-mx-6 lg:-mx-8">
         {/* <Pagination offset={offset} setOffset={setOffSet} /> */}
 
-        <div className="  min-h-full min-w-screen py-2  sm:px-6 lg:px-8">
+        <div className="  min-w-screen min-h-full py-2  sm:px-6 lg:px-8">
           {patients?.length === 0 ? (
-            <div className="grid w-full  h-screen justify-center items-start">
+            <div className="grid h-screen  w-full items-start justify-center">
               <h1 className="align-middle text-4xl font-bold text-gray-400 ">
                 No hay pacientes :(
               </h1>
             </div>
           ) : (
-            <div className="min-w-screen  overflow-x-auto border-b border-gray-200 shadow sm:rounded-lg flex">
+            <div className="min-w-screen  flex overflow-x-auto border-b border-gray-200 shadow sm:rounded-lg">
               <table className="min-h-full min-w-full divide-y divide-gray-200">
                 <thead className="sticky top-0 bg-gray-50">
                   <tr className="w-full ">
@@ -58,7 +57,7 @@ export const Table: React.FC<{
                     </th>
                   </tr>
                 </thead>
-                <tbody className=" min-h-screen flex-col divide-y divide-gray-200 bg-white">
+                <tbody className=" min-h-screen flex-col divide-y divide-gray-200 bg-white capitalize">
                   {patients?.map((user) => (
                     <tr
                       className="transition-all duration-150 hover:bg-slate-100"
