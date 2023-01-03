@@ -10,7 +10,7 @@ const Auth: React.FC = () => {
   };
 
   const handleLogout = async () => {
-    await signOut({ callbackUrl: "/" });
+    await signOut({ callbackUrl: "/", redirect: true });
   };
   return (
     <button
