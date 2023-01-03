@@ -5,7 +5,14 @@ import { prisma } from "../../db/client";
 
 export const userRouter = router({
   getAll: protectedProcedure
-    .input(z.number().optional())
+    .input(
+      z
+        .object({
+          offset: z.number().optional(),
+          query: z.string().optional(),
+        })
+        .optional()
+    )
     .query(async ({ ctx, input }) => {
       const count = await ctx.prisma.paciente.count({
         where: {
@@ -14,9 +21,17 @@ export const userRouter = router({
       });
       const patients = await ctx.prisma.paciente.findMany({
         take: 10,
-        skip: input,
+        skip: input?.offset,
         where: {
           userId: ctx.session.user.id,
+
+          OR: [
+            {
+              nombre: {
+                contains: input?.query?.toLocaleLowerCase(),
+              },
+            },
+          ],
         },
 
         orderBy: [
@@ -31,7 +46,7 @@ export const userRouter = router({
           id: true,
         },
       });
-      return {patients, count}
+      return { patients, count };
     }),
   getUserById: protectedProcedure
     .input(z.any())
@@ -74,21 +89,21 @@ export const userRouter = router({
     .mutation(async ({ input, ctx }) => {
       const paciente = await prisma.paciente.create({
         data: {
-          nombre: input.nombre,
-          edad: input.edad,
-          telefono: input.telefono,
-          nacimiento: input.edad,
-          direccion: input.direccion,
-          talla: input.talla,
-          peso: input.peso,
-          pa: input.pa,
-          fc: input.fc,
-          satO2: input.satO2,
-          promPa: input.promPa,
-          promFc: input.promFc,
-          ttoActual: input.ttoActual,
-          primeraCita: input.primeraCita,
-          control: input.control,
+          nombre: input.nombre.toLocaleLowerCase(),
+          edad: input.edad.toLocaleLowerCase(),
+          telefono: input.telefono.toLocaleLowerCase(),
+          nacimiento: input.edad.toLocaleLowerCase(),
+          direccion: input.direccion.toLocaleLowerCase(),
+          talla: input.talla.toLocaleLowerCase(),
+          peso: input.peso.toLocaleLowerCase(),
+          pa: input.pa.toLocaleLowerCase(),
+          fc: input.fc.toLocaleLowerCase(),
+          satO2: input.satO2.toLocaleLowerCase(),
+          promPa: input.promPa?.toLocaleLowerCase(),
+          promFc: input.promFc?.toLocaleLowerCase(),
+          ttoActual: input.ttoActual?.toLocaleLowerCase(),
+          primeraCita: input.primeraCita?.toLocaleLowerCase(),
+          control: input.control?.toLocaleLowerCase(),
           userId: ctx.session.user.id,
         },
         select: {

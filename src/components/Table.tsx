@@ -1,24 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 
 import type { PacienteFromDB } from "types/user";
 import { UserGroupIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { trpc } from "@utils/trpc";
+import { DialogNotification } from "common/DialogNotification";
 
 export const Table: React.FC<{
   patients: PacienteFromDB[] | undefined;
   isLoading: boolean;
   error: string | undefined;
-}> = ({ patients }) => {
+  setPatients: React.Dispatch<
+    React.SetStateAction<PacienteFromDB[] | undefined>
+  >;
+}> = ({ patients, setPatients }) => {
   const deletePatient = trpc.users.delete.useMutation();
   const queryName = trpc.users.getAll.useQuery.name;
-  const { refetch } = trpc.users.getAll.useQuery();
-
+  const { refetch } = trpc.users.getAll.useQuery({});
+  const [open, setOpen] = useState(false);
   return (
     <>
       <div className="my-2 h-full w-full overflow-hidden sm:-mx-6 lg:-mx-8">
-
-
         <div className="  min-w-screen min-h-full py-2  sm:px-6 lg:px-8">
           {patients?.length === 0 ? (
             <div className="grid h-screen  w-full items-start justify-center">
@@ -39,19 +41,19 @@ export const Table: React.FC<{
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+                      className=" px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 "
                     >
                       Dirección
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+                      className=" px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 "
                     >
                       Número
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+                      className=" px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 "
                     >
                       Id
                     </th>
@@ -60,7 +62,7 @@ export const Table: React.FC<{
                 <tbody className=" min-h-screen flex-col divide-y divide-gray-200 bg-white capitalize">
                   {patients?.map((user) => (
                     <tr
-                      className="transition-all duration-150 hover:bg-slate-100"
+                      className="transition-all duration-150 hover:bg-gray-50"
                       key={`user-item-${user.id}`}
                     >
                       <td className="whitespace-nowrap px-6 py-4">
@@ -72,39 +74,55 @@ export const Table: React.FC<{
                           </div>
                         </div>
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4">
+                      <td className=" whitespace-nowrap px-6 py-4 ">
                         <div className="text-sm text-gray-500">
                           {user.direccion}
                         </div>
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4">
+                      <td className=" whitespace-nowrap px-6 py-4 ">
                         <span className="inline-flex rounded-full  px-2 text-xs font-semibold leading-5 text-gray-500">
                           {user.telefono}
                         </span>
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
+                      <td className=" whitespace-nowrap px-6 py-4 text-sm text-gray-500 ">
                         {user.id}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4 text-right text-sm font-medium text-blue-700">
-                        <button>Editar</button>
+                        <Link 
+                        href={`pacientes/${user.id}/edit`}
+                        className="rounded-lg bg-blue-100 px-2 disabled:bg-gray-50 disabled:text-gray-700">
+                          Editar
+                        </Link>
                       </td>
                       <td className="whitespace-nowrap px-6 py-4 text-right text-sm font-medium text-gray-700">
-                        <Link href={`pacientes/${user.id}`}>Detalles</Link>
+                        <Link
+                          className="rounded-lg bg-gray-100 px-2 disabled:bg-gray-50 disabled:text-gray-700"
+                          href={`pacientes/${user.id}`}
+                        >
+                          Detalles
+                        </Link>
                       </td>
                       <td className="whitespace-nowrap px-6 py-4 text-right text-sm font-medium text-red-700">
                         <button
+                          className="rounded-lg bg-red-100 px-2 disabled:bg-gray-50 disabled:text-gray-700"
                           onClick={() => {
                             deletePatient.mutate(user.id, {
-                              onSuccess() {
-                                refetch({ exact: true, queryKey: [queryName] });
-                                console.log(
-                                  "paciente  " +
-                                    user.id +
-                                    "eliminado correctamente"
-                                );
+                              onSuccess(data) {
+                                if (data) {
+                                  const filteredPatients = patients.filter(
+                                    (patient) => patient.id === user.id
+                                  );
+                                  setPatients(filteredPatients);
+                                  setOpen(true);
+                                }
+                                refetch({
+                                  exact: true,
+                                  queryKey: [queryName],
+                                });
                               },
                             });
                           }}
+                          disabled={deletePatient.isLoading}
                         >
                           Eliminar
                         </button>
@@ -117,6 +135,12 @@ export const Table: React.FC<{
           )}
         </div>
       </div>
+      <DialogNotification
+        open={open}
+        setOpen={setOpen}
+        title="Paciente eliminado"
+        description="Paciente eliminado exitosamente!"
+      />
     </>
   );
 };

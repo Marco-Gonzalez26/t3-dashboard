@@ -24,7 +24,7 @@ export const Pagination: React.FC<{
   };
 
   const handleNext = () => {
-    if (patientLength && patientLength > (offset + 10)) {
+    if (patientLength && patientLength > offset + 10) {
       setOffset(offset + 10);
 
       if (pagesCount && currentPage <= pagesCount) {
@@ -45,7 +45,7 @@ export const Pagination: React.FC<{
         >
           Anterior
         </button>
-        <div>
+        <div className="hidden md:block">
           {items?.map((item) => {
             const currentClassName =
               currentPage === item && "scale-110 border-blue-800 text-blue-900";

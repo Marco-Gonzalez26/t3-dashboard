@@ -24,7 +24,7 @@ const Form: React.FC<{
     React.SetStateAction<PacienteFromDB[] | undefined>
   >;
 }> = ({ setOpen, setPatients, setOpenDialog }) => {
-  const { refetch } = trpc.users.getAll.useQuery();
+  const { refetch } = trpc.users.getAll.useQuery({});
   const queryKey = trpc.users.getAll.useQuery.name;
   const createPatientMutation = trpc.users.create.useMutation();
 
@@ -44,13 +44,13 @@ const Form: React.FC<{
         onSettled(data) {
           if (data) {
             const { paciente } = data;
-            setOpen(false);
             setPatients((prevPatients) => {
               const prev: PacienteFromDB[] = prevPatients || [];
 
               return [...prev, paciente];
             });
 
+            setOpen(false);
             console.log("Paciente agregado exitosamente!");
 
             setOpenDialog(true);
