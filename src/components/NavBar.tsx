@@ -68,7 +68,7 @@ function NavBar() {
           {session?.user && (
             <div className="flex items-center gap-2 text-sm">
               <div className="h-8 w-8 rounded-full bg-gradient-to-b from-cyan-500 to-violet-500" />
-              <img src={session.user.image!} />
+              <img src={session.user.image!} className="h-8 w-8 rounded-full ring-1 ring-violet-700" />
               <p>{session.user.name}</p>
             </div>
           )}
