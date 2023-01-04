@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { trpc } from "@utils/trpc";
 import type { Paciente, PacienteFromDB } from "../types/user";
 import { useForm, Resolver } from "react-hook-form";
@@ -27,6 +27,7 @@ const Form: React.FC<{
   const { refetch } = trpc.users.getAll.useQuery({});
   const queryKey = trpc.users.getAll.useQuery.name;
   const createPatientMutation = trpc.users.create.useMutation();
+  const [checked, setChecked] = useState(false);
 
   const {
     register,
@@ -61,6 +62,10 @@ const Form: React.FC<{
       }
     );
   });
+
+  const onCheckBoxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(e.target.checked);
+  };
   return (
     <div className="mt-10 sm:mt-0">
       <div className="md:grid md:grid-cols-3 md:gap-6">
@@ -245,6 +250,7 @@ const Form: React.FC<{
                     <textarea
                       {...register("ttoActual")}
                       id="tratamiento"
+                      required
                       className="mt-1 block w-full resize-none rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
                   </div>
@@ -276,6 +282,57 @@ const Form: React.FC<{
                       {...register("control")}
                       id="control"
                       autoComplete="address-level1"
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    />
+                  </div>
+                  <div className="col-span-6 items-center sm:col-span-3 lg:col-span-2">
+                    <input
+                      type="checkbox"
+                      id="checkbox-prom"
+                      className="mt-1 mr-2 h-5 w-5 rounded-md border-gray-700  shadow-sm sm:text-sm"
+                      onChange={onCheckBoxChange}
+                    />
+                    <label
+                      htmlFor="checkbox-prom"
+                      className=" text-sm font-medium text-gray-700"
+                    >
+                      ¿Se necesita promedio?
+                    </label>
+                  </div>
+
+                  <div
+                    className={` col-span-6 opacity-0 sm:col-span-3 lg:col-span-2 ${
+                      checked ? "opacity-100" : ""
+                    } transition-all`}
+                  >
+                    <label
+                      htmlFor="promPa"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Promedio de Presión Arterial
+                    </label>
+                    <input
+                      type="text"
+                      {...register("promPa")}
+                      id="promPa"
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    />
+                  </div>
+                  <div
+                    className={` col-span-6 opacity-0 sm:col-span-3 lg:col-span-2 ${
+                      checked ? "opacity-100" : ""
+                    } transition-all`}
+                  >
+                    <label
+                      htmlFor="promFc"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Promedio de Frecuencia cardíaca
+                    </label>
+                    <input
+                      type="text"
+                      {...register("promFc")}
+                      id="promFc"
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
                   </div>

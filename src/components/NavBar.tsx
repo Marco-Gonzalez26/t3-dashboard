@@ -43,7 +43,7 @@ function NavBar() {
                 return (
                   <li
                     key={text}
-                    className=" rounded-lg border-2 border-transparent px-2 transition-all hover:border-violet-500"
+                    className="  border-2 border-transparent px-2 transition-all hover:border-b-violet-500"
                   >
                     <Link href={path} className="w-full ">
                       {text}
@@ -55,7 +55,7 @@ function NavBar() {
                 return (
                   <li
                     key={text}
-                    className=" rounded-lg border-2 border-transparent px-2 transition-all hover:border-violet-500"
+                    className=" border-2 border-transparent px-2 transition-all hover:border-b-violet-500"
                   >
                     <a href={id} className="w-full ">
                       {text}
@@ -77,11 +77,13 @@ function NavBar() {
         </ul>
       </nav>
       {open && (
-        <div className="z-index-10 fixed flex h-[90%] w-72 items-start justify-start md:hidden">
+        <div
+          className={` fixed z-10 flex h-[90%] w-72 items-start justify-start md:hidden opacity-0 ${
+            open ? "flex opacity-100" : ""
+          } transition-all`}
+        >
           <ul
-            className={`sticky left-0 top-0  h-full w-full flex-col gap-5 rounded-xl bg-white p-5 text-lg font-semibold text-gray-700 shadow-lg shadow-gray-800 md:hidden ${
-              open ? "flex" : ""
-            }`}
+            className={`sticky left-0 top-0  z-50 h-full w-full flex-col gap-5 rounded-xl bg-white p-5 text-lg font-semibold text-gray-700 shadow-lg shadow-gray-300 md:hidden `}
           >
             <div className="flex items-center justify-between">
               <Link
@@ -109,7 +111,7 @@ function NavBar() {
                   return (
                     <Link
                       href={path}
-                      className="w-full cursor-pointer rounded-lg border-2 border-transparent p-2 transition-all hover:border-violet-300 hover:opacity-90"
+                      className="w-full cursor-pointer  border-2 border-transparent p-2 transition-all  hover:border-b-violet-500 "
                       key={text}
                       onClick={() => setOpen(false)}
                     >

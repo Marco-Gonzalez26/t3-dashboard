@@ -26,7 +26,7 @@ const Home: NextPage = () => {
       </Head>
       <Layout>
         {!data?.user ? (
-          <div className="h-screen items-center justify-center">
+          <div className="flex h-screen w-screen items-center justify-center">
             <Loader />
           </div>
         ) : (

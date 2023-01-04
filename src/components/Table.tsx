@@ -24,7 +24,7 @@ export const Table: React.FC<{
         <div className="  min-w-screen min-h-full py-2  sm:px-6 lg:px-8">
           {patients?.length === 0 ? (
             <div className="grid h-screen  w-full items-start justify-center">
-              <h1 className="align-middle text-4xl font-bold text-gray-400 ">
+              <h1 className="align-middle text-4xl font-bold text-gray-400 text-center">
                 No hay pacientes :(
               </h1>
             </div>
@@ -85,7 +85,7 @@ export const Table: React.FC<{
                         </span>
                       </td>
                       <td className=" whitespace-nowrap px-6 py-4 text-sm text-gray-500 ">
-                        {user.id}
+                        {user.id?.substring(0, 10)}...
                       </td>
                       <td className="whitespace-nowrap px-6 py-4 text-right text-sm font-medium text-blue-700">
                         <Link 
