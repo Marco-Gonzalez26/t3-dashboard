@@ -6,12 +6,10 @@ import Layout from "@components/Layout";
 
 import Link from "next/link";
 import Loader from "@components/Loader";
+import Auth from "@components/Auth";
 
 const Home: NextPage = () => {
   const { status } = useSession();
-
-
-
 
   return (
     <>
@@ -38,12 +36,7 @@ const Home: NextPage = () => {
               La mejor manera para brindar un buen servicio es teniendo la mejor
               herramienta
             </p>
-            <Link
-              href="/login"
-              className="mt-5  flex items-center rounded-lg bg-indigo-600 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-indigo-600 hover:bg-indigo-700 hover:ring-indigo-700 "
-            >
-              Iniciar Sesión
-            </Link>
+            <Auth />
           </div>
         )}
       </Layout>
