@@ -8,7 +8,7 @@ function Calendario() {
         Esta funcionalidad esta en desarrollo 😄👨‍💻
       </h2>
 
-      <RocketLaunchIcon className="w-2/6 text-gray-700 opacity-80 transition-all hover:opacity-100" />
+      <RocketLaunchIcon className="w-2/6 text-gray-700 opacity-70 transition-all " />
     </Layout>
   );
 }
