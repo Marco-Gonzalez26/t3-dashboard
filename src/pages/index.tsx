@@ -36,7 +36,17 @@ const Home: NextPage = () => {
               La mejor manera para brindar un buen servicio es teniendo la mejor
               herramienta
             </p>
-            <Auth />
+            <div className="flex w-full justify-center gap-5">
+              <Auth />
+              {status === "authenticated" && (
+                <Link
+                  href="/panel"
+                  className="flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-indigo-600 hover:bg-indigo-700 hover:ring-indigo-700"
+                >
+                  Ir a tu Panel de Control
+                </Link>
+              )}
+            </div>
           </div>
         )}
       </Layout>

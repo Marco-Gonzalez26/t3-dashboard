@@ -1,12 +1,16 @@
-import Layout from '@components/Layout'
-import React from 'react'
-
+import Layout from "@components/Layout";
+import React from "react";
+import { RocketLaunchIcon } from "@heroicons/react/24/outline";
 function Calendario() {
   return (
     <Layout>
-      <h1>Calendario</h1>
+      <h2 className="mb-10  text-3xl font-extrabold text-gray-700 md:text-5xl text-center">
+        Esta funcionalidad esta en desarrollo 😄👨‍💻
+      </h2>
+
+      <RocketLaunchIcon className="w-2/6 text-gray-700 opacity-80 transition-all hover:opacity-100" />
     </Layout>
-  )
+  );
 }
 
-export default Calendario
+export default Calendario;
