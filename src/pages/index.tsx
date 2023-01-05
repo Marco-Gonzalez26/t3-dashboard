@@ -21,7 +21,7 @@ const Home: NextPage = () => {
       <Layout>
         {status === "loading" ? (
           <div className="flex h-screen w-screen items-center justify-center">
-            <Loader />
+            <Loader text="Obteniendo sesión" />
           </div>
         ) : (
           <div

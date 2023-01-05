@@ -15,7 +15,7 @@ const Pacientes = () => {
     <Layout>
       {isLoading ? (
         <div className="flex h-screen w-screen items-center justify-center">
-          <Loader />
+          <Loader text="Obteniendo Paciente"/>
         </div>
       ) : (
         <>

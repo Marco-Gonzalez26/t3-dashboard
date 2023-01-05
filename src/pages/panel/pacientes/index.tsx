@@ -7,7 +7,7 @@ import Layout from "@components/Layout";
 import Loader from "@components/Loader";
 import Form from "common/Form";
 import { Modal } from "common/Modal";
-import { DialogNotification } from "common/DialogNotification";
+
 import { Table } from "@components/Table";
 import type { PacienteFromDB } from "types/user";
 import { Pagination } from "@components/Pagination";
@@ -45,7 +45,7 @@ function Pacientes() {
         Pacientes
       </h2>
       <div className="flex w-full flex-col justify-between md:flex-row-reverse ">
-        <span className="flex w-4/5 items-center justify-end sm:ml-3">
+        <span className="flex items-center justify-end sm:ml-3">
           <button
             type="button"
             className="inline-flex items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
@@ -78,8 +78,8 @@ function Pacientes() {
         patientLength={patientLength}
       />
       {isLoading ? (
-        <div className="flex h-screen w-full items-center justify-center">
-          <Loader />
+        <div className="flex h-full w-full items-center justify-center mt-10">
+          <Loader text="Obteniendo Pacientes" />
         </div>
       ) : (
         <Table

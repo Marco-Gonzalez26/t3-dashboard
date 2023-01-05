@@ -1,11 +1,13 @@
 import React from "react";
 
-function Loader() {
+const Loader: React.FC<{
+  text: string;
+}> = ({ text }) => {
   return (
     <>
       <div className="bg-white">
         <div className=" relative rounded">
-          <div className="relative mx-auto flex h-[190px] w-[190px] animate-spin items-center justify-center rounded-full bg-indigo-200">
+          <div className="relative mx-auto flex h-[190px] w-[190px] animate-spin items-center justify-center rounded-full bg-indigo-50">
             <svg
               className="absolute top-[2px] right-0"
               width={76}
@@ -26,13 +28,13 @@ function Loader() {
             </svg>
             <div className="h-[150px] w-[150px] rounded-full bg-white" />
           </div>
-          <p className="absolute inset-x-0 inset-y-[80px] mx-auto my-auto text-center text-base font-medium text-gray-800">
-            Cargando ...
+          <p className="absolute inset-x-0 inset-y-[80px] mx-auto my-auto text-center text-base font-medium text-gray-900 backdrop-filter ">
+             {text}...
           </p>
         </div>
       </div>
     </>
   );
-}
+};
 
 export default Loader;
