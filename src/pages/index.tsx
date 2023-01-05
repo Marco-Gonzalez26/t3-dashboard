@@ -7,9 +7,7 @@ import Layout from "@components/Layout";
 import Link from "next/link";
 import Loader from "@components/Loader";
 import Auth from "@components/Auth";
-import SapiensSVG from "../assets/sapiens.svg";
-import Image from "next/image";
-import SVGsapiens from "@components/SVGImage";
+
 const Home: NextPage = () => {
   const { status } = useSession();
 
