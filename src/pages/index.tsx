@@ -9,13 +9,10 @@ import Link from "next/link";
 import Loader from "@components/Loader";
 
 const Home: NextPage = () => {
-  const { status, data } = useSession();
+  const { status } = useSession();
 
-  const router = useRouter();
 
-  if (status === "authenticated") {
-    router.push("/panel");
-  }
+
 
   return (
     <>
@@ -25,7 +22,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        {!data?.user ? (
+        {status === "loading" ? (
           <div className="flex h-screen w-screen items-center justify-center">
             <Loader />
           </div>
