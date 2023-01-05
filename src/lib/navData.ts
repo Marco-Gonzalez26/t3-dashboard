@@ -28,8 +28,4 @@ export const noAuthNavData: NoAuthNavItem[] = [
     text: "Inicio",
     id: "#inicio",
   },
-  {
-    text: "Producto",
-    id: "#producto",
-  },
 ];

@@ -88,7 +88,7 @@ function NavBar() {
             <div className="flex items-center justify-between">
               <Link
                 href="/"
-                className="text-xl font-bold text-gray-700 mb-2"
+                className="mb-2 text-xl font-bold text-gray-700"
                 onClick={() => setOpen(false)}
               >
                 <span className="flex items-center justify-between">
@@ -111,7 +111,7 @@ function NavBar() {
                   return (
                     <Link
                       href={path}
-                      className="w-full cursor-pointer  border-2 border-transparent p-2 transition-all  hover:border-violet-500 rounded-lg"
+                      className=" hover:opacity-85  cursor-pointer rounded-lg border-2 border-transparent   px-2 transition-all"
                       key={text}
                       onClick={() => setOpen(false)}
                     >
@@ -123,11 +123,9 @@ function NavBar() {
                   return (
                     <li
                       key={text}
-                      className="  cursor-pointer  border-2 border-transparent p-2 transition-all  hover:border-violet-500 mb-5 rounded-lg"
+                      className="  hover:opacity-85  mb-5 cursor-pointer rounded-lg border-2  border-transparent p-2 transition-all"
                     >
-                      <a href={id} >
-                        {text}
-                      </a>
+                      <a href={id}>{text}</a>
                     </li>
                   );
                 })}

@@ -7,7 +7,9 @@ import Layout from "@components/Layout";
 import Link from "next/link";
 import Loader from "@components/Loader";
 import Auth from "@components/Auth";
-
+import SapiensSVG from "../assets/sapiens.svg";
+import Image from "next/image";
+import SVGsapiens from "@components/SVGImage";
 const Home: NextPage = () => {
   const { status } = useSession();
 
@@ -24,30 +26,35 @@ const Home: NextPage = () => {
             <Loader />
           </div>
         ) : (
-          <div
-            className="flex min-h-screen w-full flex-col  items-center justify-start
-        rounded bg-gradient-to-tr from-blue-50 to-violet-50 md:justify-center"
-          >
-            <h1 className="mt-10 text-center text-3xl font-bold text-gray-800 md:mt-0 md:text-7xl">
-              Datos para mejorar tu{" "}
-              <span className="ml-2 text-violet-700">trabajo</span>
-            </h1>
-            <p className="mt-6 p-2 text-center text-xl leading-8 text-gray-600 sm:text-center">
-              La mejor manera para brindar un buen servicio es teniendo la mejor
-              herramienta
-            </p>
-            <div className="flex w-full justify-center gap-5">
-              <Auth />
-              {status === "authenticated" && (
-                <Link
-                  href="/panel"
-                  className="flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-indigo-600 hover:bg-indigo-700 hover:ring-indigo-700"
-                >
-                  Ir a tu Panel de Control
-                </Link>
-              )}
+          <>
+            <div
+              id="inicio"
+              className="flex min-h-screen w-full flex-col  items-center justify-start
+        rounded bg-gradient-to-r from-blue-100 to-violet-100 px-2 
+        md:justify-center"
+            >
+              <h1 className="mt-10 text-center text-4xl font-bold text-gray-800 md:mt-0 md:text-7xl">
+                Datos para mejorar tu{" "}
+                <span className="ml-2 text-violet-700">trabajo</span>
+              </h1>
+              <p className="mt-6 p-2 text-center text-xl leading-8 text-gray-600 sm:text-center">
+                La mejor manera para brindar un buen servicio es teniendo la
+                mejor herramienta
+              </p>
+
+              <div className="flex w-full justify-center gap-5">
+                <Auth />
+                {status === "authenticated" && (
+                  <Link
+                    href="/panel"
+                    className="flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-indigo-600 hover:bg-indigo-700 hover:ring-indigo-700"
+                  >
+                    Ir a tu Panel de Control
+                  </Link>
+                )}
+              </div>
             </div>
-          </div>
+          </>
         )}
       </Layout>
     </>
