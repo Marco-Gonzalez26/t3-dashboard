@@ -1,6 +1,7 @@
 import React from "react";
-import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
+
 import { signIn, signOut, useSession } from "next-auth/react";
+import GoogleLogo from "./Icons/GoogleIcon";
 
 const Auth: React.FC = () => {
   const { status } = useSession();
@@ -21,7 +22,7 @@ const Auth: React.FC = () => {
     >
       {status === "authenticated" ? "Cerrar Sesión" : "Iniciar Sesión"}
       <span className="ml-2 text-indigo-200" aria-hidden="true">
-        <ArrowLongRightIcon width={15} />
+        <GoogleLogo />
       </span>
     </button>
   );

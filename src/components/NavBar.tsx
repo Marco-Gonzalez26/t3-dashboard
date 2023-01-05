@@ -124,6 +124,7 @@ function NavBar() {
                     <li
                       key={text}
                       className="  hover:opacity-85  mb-5 cursor-pointer rounded-lg border-2  border-transparent p-2 transition-all"
+                      onClick={() => setOpen(false)}
                     >
                       <a href={id}>{text}</a>
                     </li>
