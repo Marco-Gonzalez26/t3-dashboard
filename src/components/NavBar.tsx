@@ -55,7 +55,7 @@ function NavBar() {
                 return (
                   <li
                     key={text}
-                    className=" border-2 border-transparent px-2 transition-all hover:border-b-violet-500"
+                    className="   border-2 border-transparent px-2 transition-all hover:border-b-violet-500"
                   >
                     <a href={id} className="w-full ">
                       {text}
@@ -78,7 +78,7 @@ function NavBar() {
       </nav>
       {open && (
         <div
-          className={` fixed z-10 flex h-[90%] w-72 items-start justify-start md:hidden opacity-0 ${
+          className={` fixed z-10 flex h-[90%] w-72 items-start justify-start opacity-0 md:hidden ${
             open ? "flex opacity-100" : ""
           } transition-all`}
         >
@@ -88,7 +88,7 @@ function NavBar() {
             <div className="flex items-center justify-between">
               <Link
                 href="/"
-                className="text-xl font-bold text-gray-700"
+                className="text-xl font-bold text-gray-700 mb-2"
                 onClick={() => setOpen(false)}
               >
                 <span className="flex items-center justify-between">
@@ -111,7 +111,7 @@ function NavBar() {
                   return (
                     <Link
                       href={path}
-                      className="w-full cursor-pointer  border-2 border-transparent p-2 transition-all  hover:border-b-violet-500 "
+                      className="w-full cursor-pointer  border-2 border-transparent p-2 transition-all  hover:border-violet-500 rounded-lg"
                       key={text}
                       onClick={() => setOpen(false)}
                     >
@@ -123,9 +123,9 @@ function NavBar() {
                   return (
                     <li
                       key={text}
-                      className=" rounded-lg border-2 border-transparent px-2 transition-all hover:border-violet-500"
+                      className="  cursor-pointer  border-2 border-transparent p-2 transition-all  hover:border-violet-500 mb-5 rounded-lg"
                     >
-                      <a href={id} className="w-full ">
+                      <a href={id} >
                         {text}
                       </a>
                     </li>
