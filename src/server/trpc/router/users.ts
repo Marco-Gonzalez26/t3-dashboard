@@ -85,7 +85,7 @@ export const userRouter = router({
           nombre: input.nombre.toLocaleLowerCase(),
           edad: input.edad.toLocaleLowerCase(),
           telefono: input.telefono.toLocaleLowerCase(),
-          nacimiento: input.edad.toLocaleLowerCase(),
+          nacimiento: input.nacimiento.toLocaleLowerCase(),
           direccion: input.direccion.toLocaleLowerCase(),
           talla: input.talla.toLocaleLowerCase(),
           peso: input.peso.toLocaleLowerCase(),

@@ -14,13 +14,13 @@ const DescriptionList: React.FC<{ patient: Paciente | null | undefined }> = ({
           Detalles e información
         </p>
       </div>
-      <div className="flex border-t border-gray-200 capitalize">
+      <div className="flex border-t border-gray-200 ">
         <dl>
           <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-gray-500">
               Nombre Completo
             </dt>
-            <dd className="mt-1 text-sm capitalize text-gray-900 sm:col-span-2 sm:mt-0">
+            <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 uppercase">
               {patient?.nombre}
             </dd>
           </div>
@@ -35,7 +35,7 @@ const DescriptionList: React.FC<{ patient: Paciente | null | undefined }> = ({
           <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-gray-500">Edad</dt>
             <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-              {patient?.edad}
+              {patient?.edad} años
             </dd>
           </div>
           <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -47,13 +47,13 @@ const DescriptionList: React.FC<{ patient: Paciente | null | undefined }> = ({
           <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-gray-500">Talla</dt>
             <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-              {patient?.talla}
+              {patient?.talla}mt
             </dd>
           </div>
           <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-gray-500">Peso</dt>
             <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-              {patient?.peso}
+              {patient?.peso}kg
             </dd>
           </div>
           <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -70,8 +70,8 @@ const DescriptionList: React.FC<{ patient: Paciente | null | undefined }> = ({
             <dt className="text-sm font-medium text-gray-500">
               Presión Arterial
             </dt>
-            <dd className="mt-1 text-sm capitalize text-gray-900 sm:col-span-2 sm:mt-0">
-              {patient?.pa}
+            <dd className="mt-1 text-sm  text-gray-900 sm:col-span-2 sm:mt-0">
+              {patient?.pa} mmHg
             </dd>
           </div>
           <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -79,7 +79,7 @@ const DescriptionList: React.FC<{ patient: Paciente | null | undefined }> = ({
               Frecuencia Cardiaca
             </dt>
             <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-              {patient?.fc}
+              {patient?.fc} lpm
             </dd>
           </div>
           <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
