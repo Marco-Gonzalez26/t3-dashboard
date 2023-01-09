@@ -1,16 +1,22 @@
 import Layout from "@components/Layout";
-import React from "react";
-import { RocketLaunchIcon } from "@heroicons/react/24/outline";
-function Calendario() {
+import React, { useEffect, useState } from "react";
+
+
+import CalendarComponent from "@components/CalendarComponent";
+import { trpc } from "@utils/trpc";
+
+
+const Calendario = () => {
+  const [events, setEvents] = useState([]);
+
   return (
     <Layout>
-      <h2 className="mb-10  text-3xl font-extrabold text-gray-700 md:text-5xl text-center">
-        Esta funcionalidad esta en desarrollo 😄👨‍💻
+      <h2 className="mb-10  text-center text-3xl font-extrabold text-gray-700 md:text-5xl">
+        Calendario
       </h2>
-
-      <RocketLaunchIcon className="w-2/6 text-gray-700 opacity-70 transition-all " />
+      <CalendarComponent />
     </Layout>
   );
-}
+};
 
 export default Calendario;

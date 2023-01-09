@@ -7,18 +7,19 @@ export type PacienteFromDB = {
 export type Paciente = {
   id?: string;
   nombre: string;
-  edad: string;
+  email: string;
+  edad: number;
   nacimiento: string;
   telefono: string;
   direccion: string;
   talla: string;
-  peso: string;
+  peso: number;
   pa: string;
   fc: string;
   satO2: string;
   promPa?: string | null;
   promFc?: string | null;
   ttoActual?: string | null;
-  primeraCita?: string |null;
-  control?: string | null;
+  primeraCita?: Date | null;
+  control?: Date | null;
 };

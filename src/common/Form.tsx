@@ -36,9 +36,26 @@ const Form: React.FC<{
   } = useForm<Paciente>({ resolver });
 
   const onSubmit = handleSubmit(async (data) => {
+    const firstAppointmentDate = new Date(data.primeraCita!);
+    const controlDate = new Date(data.control!);
     await createPatientMutation.mutate(
       {
-        ...data,
+        nombre: data.nombre,
+        edad: Number(data.edad),
+        direccion: data.direccion,
+        email: data.email,
+        nacimiento: data.nacimiento,
+        telefono: data.telefono,
+        talla: data.talla,
+        peso: Number(data.peso),
+        fc: data.fc,
+        pa: data.pa,
+        satO2: data.satO2,
+        ttoActual: data.ttoActual,
+        primeraCita: firstAppointmentDate,
+        control: controlDate.toISOString(),
+        promFc: data.promFc,
+        promPa: data.promPa,
       },
 
       {
@@ -99,7 +116,8 @@ const Form: React.FC<{
                       Edad
                     </label>
                     <input
-                      type="text"
+                      type="number"
+                      inputMode="numeric"
                       id="age"
                       autoComplete="edad"
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
@@ -125,8 +143,25 @@ const Form: React.FC<{
                     />
                     <small className="text-gray-500">
                       {" "}
-                      Ejemplo: 26-06-2002
+                      Ejemplo: 26/06/2002
                     </small>
+                  </div>
+                  <div className="col-span-6 sm:col-span-2">
+                    <label
+                      htmlFor="height"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Correo Electrónico
+                    </label>
+                    <input
+                      type="email"
+                      {...register("email")}
+                      id="height"
+                      inputMode="email"
+                      autoComplete="email"
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      required
+                    />
                   </div>
                   <div className="col-span-6 sm:col-span-1">
                     <label
@@ -144,6 +179,7 @@ const Form: React.FC<{
                       required
                     />
                   </div>
+
                   <div className="col-span-6 sm:col-span-1">
                     <label
                       htmlFor="weight"
@@ -152,9 +188,10 @@ const Form: React.FC<{
                       Peso
                     </label>
                     <input
-                      type="text"
+                      type="number"
                       {...register("peso")}
                       id="weight"
+                      inputMode="numeric"
                       autoComplete="peso"
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       required
@@ -184,9 +221,10 @@ const Form: React.FC<{
                       Teléfono
                     </label>
                     <input
-                      type="text"
+                      type="tel"
                       {...register("telefono")}
                       id="tel"
+                      inputMode="tel"
                       autoComplete="tel"
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       required
@@ -263,14 +301,14 @@ const Form: React.FC<{
                       Primera Cita
                     </label>
                     <input
-                      type="text"
+                      type="date"
                       {...register("primeraCita")}
                       id="primera-cita"
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
                   </div>
 
-                  <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                  <div className="col-span-6 sm:col-span-1 lg:col-span-2">
                     <label
                       htmlFor="control"
                       className="block text-sm font-medium text-gray-700"
@@ -278,30 +316,15 @@ const Form: React.FC<{
                       Control
                     </label>
                     <input
-                      type="text"
+                      type="date"
                       {...register("control")}
                       id="control"
-                      autoComplete="address-level1"
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
                   </div>
-                  <div className="col-span-6 items-center sm:col-span-3 lg:col-span-2">
-                    <input
-                      type="checkbox"
-                      id="checkbox-prom"
-                      className="mt-1 mr-2 h-5 w-5 rounded-md border-gray-700  shadow-sm sm:text-sm"
-                      onChange={onCheckBoxChange}
-                    />
-                    <label
-                      htmlFor="checkbox-prom"
-                      className=" text-sm font-medium text-gray-700"
-                    >
-                      ¿Se necesita promedio?
-                    </label>
-                  </div>
 
                   <div
-                    className={` col-span-6 opacity-0 sm:col-span-3 lg:col-span-2 ${
+                    className={` col-span-6 opacity-0 sm:col-span-1 lg:col-span-2 ${
                       checked ? "opacity-100" : ""
                     } transition-all`}
                   >
@@ -335,6 +358,20 @@ const Form: React.FC<{
                       id="promFc"
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
+                  </div>
+                  <div className="col-span-6 items-center sm:col-span-3 lg:col-span-2">
+                    <input
+                      type="checkbox"
+                      id="checkbox-prom"
+                      className="mt-1 mr-2 h-5 w-5 rounded-md border-gray-700  shadow-sm sm:text-sm"
+                      onChange={onCheckBoxChange}
+                    />
+                    <label
+                      htmlFor="checkbox-prom"
+                      className=" text-sm font-medium text-gray-700"
+                    >
+                      ¿Se necesita promedio?
+                    </label>
                   </div>
                 </div>
               </div>

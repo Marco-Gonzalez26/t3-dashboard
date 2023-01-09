@@ -14,19 +14,20 @@ model Paciente {
   id          String  @id @default(auto()) @map("_id") @db.ObjectId
   nombre      String
   telefono    String
-  edad        String
+  edad        Int
+  email       String
   nacimiento  String
   direccion   String
   talla       String
-  peso        String
+  peso        Int
   pa          String
   fc          String
   satO2       String
   promPa      String? 
   promFc      String?
   ttoActual   String?
-  primeraCita String?
-  control     String?
+  primeraCita DateTime?
+  control     DateTime?
   user        User   @relation(fields: [userId], references: [id])
   userId      String @db.ObjectId
 }
