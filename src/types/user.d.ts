@@ -4,6 +4,7 @@ export type PacienteFromDB = {
   telefono: string;
   id?: string;
 };
+
 export type Paciente = {
   id?: string;
   nombre: string;
@@ -22,4 +23,10 @@ export type Paciente = {
   ttoActual?: string | null;
   primeraCita?: Date | null;
   control?: Date | null;
+};
+
+export type Event = {
+  id?: string;
+  title: string;
+  fecha: Date;
 };

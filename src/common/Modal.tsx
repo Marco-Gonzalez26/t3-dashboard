@@ -6,7 +6,7 @@ import { XCircleIcon } from "@heroicons/react/20/solid";
 export const Modal: React.FC<{
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  children: JSX.Element | JSX.Element[];
+  children: JSX.Element | JSX.Element[] ;
   title?: string;
 }> = ({ open, setOpen, children, title }) => {
   const cancelButtonRef = useRef(null);
@@ -46,7 +46,7 @@ export const Modal: React.FC<{
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
             <div className="inline-block transform overflow-hidden rounded-lg bg-white text-left align-bottom shadow-xl transition-all sm:my-8  sm:max-w-screen-xl sm:align-middle ">
-              <div className="bg-gray-50 px-4 py-3 text-left sm:flex sm:flex-row-reverse sm:px-6 items-center justify-between">
+              <div className="items-center justify-between bg-gray-50 px-4 py-3 text-left sm:flex sm:flex-row-reverse sm:px-6">
                 <XCircleIcon
                   className="h-6 w-6 flex-shrink-0 cursor-pointer text-right text-gray-400"
                   aria-hidden="true"

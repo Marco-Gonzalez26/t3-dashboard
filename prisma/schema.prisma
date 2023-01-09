@@ -70,6 +70,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   pacientes     Paciente[]
+  citas         Citas[]
 }
 
 model VerificationToken {
@@ -80,4 +81,14 @@ model VerificationToken {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
   @@unique([identifier, token])
+}
+
+model Citas {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  titulo String
+  hora DateTime
+  fecha DateTime
+  user        User   @relation(fields: [userId], references: [id])
+  userId      String @db.ObjectId
 }
