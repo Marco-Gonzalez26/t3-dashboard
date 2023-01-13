@@ -9,10 +9,12 @@ import { Modal } from "common/Modal";
 import { AddEventForm } from "components/AddEventForm";
 
 const CalendarComponent = ({}) => {
+
   const [events, setEvents] = useState([
     { title: "event 1", date: "2023-01-02" },
     { title: "event 2", date: "2023-04-02" },
   ]);
+  
   const [open, setOpen] = useState(false);
 
   const handleDateSelect = (selectInfo: DateSelectArg) => {

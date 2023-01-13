@@ -7,13 +7,14 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 import { env } from "../../../env/server.mjs";
 import { prisma } from "../../../server/db/client";
+import { setToken } from "../../../utils/trpc";
 
 export const authOptions: NextAuthOptions = {
   // Include user.id on session
   callbacks: {
     async signIn({ account, profile, user }) {
       const currentDate = new Date();
-
+      const token = await account?.access_token;
       if (account?.provider === "google" && profile?.email === user.email) {
         await prisma.user.update({
           where: {
@@ -32,9 +33,9 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
-    async jwt({ token, account, user, profile, isNewUser }) {
-      if (account?.accessToken) {
-        token.accessToken = account.accessToken;
+    async jwt({ token, account, user }) {
+      if (account?.access_token) {
+        setToken(account.access_token);
         await prisma.account.update({
           where: {
             id: user?.id,
@@ -43,8 +44,10 @@ export const authOptions: NextAuthOptions = {
             access_token: account.access_token,
           },
         });
+        token.access_token = account.access_token;
       }
-      return token;
+
+      return await token;
     },
   },
 
@@ -61,7 +64,6 @@ export const authOptions: NextAuthOptions = {
           response_type: "code",
           scope:
             "openid email profile https://www.googleapis.com/auth/calendar",
-            
         },
       },
     }),

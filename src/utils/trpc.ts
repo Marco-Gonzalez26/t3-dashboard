@@ -11,6 +11,13 @@ const getBaseUrl = () => {
   return `http://localhost:${process.env.PORT ?? 3000}`; // dev SSR should use localhost
 };
 
+let token: string | null | undefined;
+
+export const setToken = (newToken?: string| null) => {
+  token = newToken;
+};
+
+console.log({ token });
 export const trpc = createTRPCNext<AppRouter>({
   config() {
     return {
@@ -23,6 +30,11 @@ export const trpc = createTRPCNext<AppRouter>({
         }),
         httpBatchLink({
           url: `${getBaseUrl()}/api/trpc`,
+          headers() {
+            return {
+              Authorization: `Bearer ${token}`,
+            };
+          },
         }),
       ],
     };

@@ -30,6 +30,8 @@ model Paciente {
   control     DateTime?
   user        User   @relation(fields: [userId], references: [id])
   userId      String @db.ObjectId
+  citas Citas[]
+
 }
 
 // Necessary for Next auth
@@ -91,4 +93,6 @@ model Citas {
   fecha DateTime
   user        User   @relation(fields: [userId], references: [id])
   userId      String @db.ObjectId
+  paciente    Paciente @relation(fields: [pacienteId], references: [id])
+  pacienteId  String @db.ObjectId
 }

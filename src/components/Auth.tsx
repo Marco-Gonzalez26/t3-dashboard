@@ -7,7 +7,10 @@ const Auth: React.FC = () => {
   const { status } = useSession();
 
   const handleSingIn = async () => {
-    await signIn("google", { redirect: true, callbackUrl: "/panel" });
+    await signIn("google", {
+      redirect: true,
+      callbackUrl: "/panel",
+    });
   };
 
   const handleLogout = async () => {

@@ -24,7 +24,7 @@ export const AddEventForm = () => {
   } = useForm<Event>({ resolver });
 
   return (
-    <form className="w-60  h-80 flex flex-col items-start justify-center">
+    <form className="flex  h-60 w-60 flex-col items-start justify-start">
       <label
         htmlFor="title"
         className="block text-lg font-medium text-gray-700"
@@ -38,6 +38,11 @@ export const AddEventForm = () => {
         {...register("title")}
         required
       />
+      <select>
+        {[0, 1, 2, 3, 4, 5, 6].map((item) => {
+          return <option key={item}>{item}</option>;
+        })}
+      </select>
       <label
         htmlFor="title"
         className="block text-lg font-medium text-gray-700"
@@ -53,7 +58,7 @@ export const AddEventForm = () => {
       />
       <button
         type="submit"
-        className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:bg-gray-500 w-full"
+        className="mt-5 inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:bg-gray-500"
       >
         Guardar
       </button>

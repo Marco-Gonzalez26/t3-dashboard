@@ -1,4 +1,4 @@
-import { eventsRouter } from "./events";
+import { tokenRouter } from "./calendar";
 import { router } from "../trpc";
 import { userRouter } from "./users";
 import { authRouter } from "./auth";
@@ -6,7 +6,7 @@ import { authRouter } from "./auth";
 export const appRouter = router({
   auth: authRouter,
   users: userRouter,
-  events: eventsRouter,
+  token: tokenRouter,
 });
 
 // export type definition of API
