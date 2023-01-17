@@ -20,10 +20,12 @@ function Pacientes() {
   const [offset, setOffset] = useState<number>(0);
   const [query, setQuery] = useState<string>("");
   const { push } = useRouter();
+
   const { data, isLoading, error, refetch } = trpc.users.getAll.useQuery({
     offset,
     query,
   });
+  
   const queryName = trpc.users.getAll.useQuery.name;
 
   const patientLength = data?.count;

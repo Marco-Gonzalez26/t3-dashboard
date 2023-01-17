@@ -27,6 +27,8 @@ export type Paciente = {
 
 export type Event = {
   id?: string;
-  title: string;
-  fecha: Date;
+  titulo?: string;
+  fecha?: Date;
+  hora?: string;
+  pacienteId?: string;
 };

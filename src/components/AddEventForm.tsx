@@ -1,11 +1,13 @@
 import React from "react";
-import type { Event } from "types/user";
+
 import { useForm, Resolver } from "react-hook-form";
+import { trpc } from "@utils/trpc";
+import type { PacienteFromDB, Event } from "types/user";
 
 const resolver: Resolver<Event> = async (values) => {
   return {
-    values: values.title ? values : {},
-    errors: !values.title
+    values: values.titulo ? values : {},
+    errors: !values.titulo
       ? {
           title: {
             type: "required",
@@ -16,15 +18,50 @@ const resolver: Resolver<Event> = async (values) => {
   };
 };
 
-export const AddEventForm = () => {
+export const AddEventForm: React.FC<{
+  eventDate?: Date;
+  patients: PacienteFromDB[] | undefined;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}> = ({ eventDate, patients, setOpen }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Event>({ resolver });
+  const createEvent = trpc.token.createEvent.useMutation();
+  const { refetch } = trpc.token.getEvents.useQuery();
+  const queryName = trpc.token.getEvents.useQuery.name;
+  const onSubmit = handleSubmit(async (data) => {
+    let date: Date;
+    if (eventDate) {
+      date = eventDate;
+    }
+    createEvent.mutate(
+      {
+        fecha: date!,
+        hora: data.hora,
+        titulo: data.titulo,
+        pacienteId: data.pacienteId,
+      },
+      {
+        onSettled(data) {
+          if (data) {
+            refetch({ exact: true, queryKey: [queryName] });
+            setOpen(false);
+          }
+        },
+        onError(data) {
+          console.error(data.message);
+        },
+      }
+    );
+  });
 
   return (
-    <form className="flex  h-60 w-60 flex-col items-start justify-start">
+    <form
+      className="flex  h-96 w-60 flex-col items-start justify-start"
+      onSubmit={onSubmit}
+    >
       <label
         htmlFor="title"
         className="block text-lg font-medium text-gray-700"
@@ -35,25 +72,54 @@ export const AddEventForm = () => {
         type="text"
         id="title"
         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-        {...register("title")}
+        {...register("titulo")}
         required
       />
-      <select>
-        {[0, 1, 2, 3, 4, 5, 6].map((item) => {
-          return <option key={item}>{item}</option>;
+      <label
+        htmlFor="paciente"
+        className="block text-lg font-medium text-gray-700"
+      >
+        Paciente
+      </label>
+      <select
+        id="paciente"
+        className="mt-1 block w-full rounded-md border-gray-300 capitalize shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        {...register("pacienteId")}
+      >
+        {patients?.map((item) => {
+          return (
+            <option key={item.id} value={item.id}>
+              {item.nombre}
+            </option>
+          );
         })}
       </select>
       <label
-        htmlFor="title"
+        htmlFor="fecha"
         className="block text-lg font-medium text-gray-700"
       >
         Fecha
       </label>
       <input
-        type="datetime-local"
-        id="title"
+        type="date"
+        id="fecha"
         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
         {...register("fecha")}
+        required
+        value={eventDate?.toISOString().substring(0, 10)}
+        disabled
+      />
+      <label
+        htmlFor="fecha"
+        className="block text-lg font-medium text-gray-700"
+      >
+        Hora
+      </label>
+      <input
+        type="time"
+        id="time"
+        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        {...register("hora")}
         required
       />
       <button

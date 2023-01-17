@@ -1,7 +1,7 @@
 import React from "react";
 
 interface Props {
-  children: JSX.Element | JSX.Element[];
+  children: JSX.Element | JSX.Element[] | undefined;
 }
 const Layout: React.FC<Props> = ({ children }) => {
   return (

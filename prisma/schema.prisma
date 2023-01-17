@@ -89,7 +89,7 @@ model Citas {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
   titulo String
-  hora DateTime
+  hora String
   fecha DateTime
   user        User   @relation(fields: [userId], references: [id])
   userId      String @db.ObjectId

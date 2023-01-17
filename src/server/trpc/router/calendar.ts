@@ -1,8 +1,8 @@
 import { setToken } from "../../../utils/trpc";
 import { z } from "zod";
 
-import { router, protectedProcedure, publicProcedure } from "../trpc";
-import { google } from "googleapis";
+import { router, protectedProcedure } from "../trpc";
+
 export const tokenRouter = router({
   getToken: protectedProcedure.query(async ({ ctx }) => {
     const userId = await ctx.session.user.id;
@@ -20,19 +20,62 @@ export const tokenRouter = router({
     return await { success: true, accessToken: accessToken?.access_token };
   }),
 
-  getEvents: publicProcedure
-    .input(z.string().optional().nullish())
-    .query(async ({ ctx, input }) => {
-      const calendarApi = google.calendar("v3").acl;
-      const token: string | any = input;
-      const calendar = await calendarApi.get({
-        calendarId: "primary",
-        ruleId: "get",
-        oauth_token: token,
+  getEvents: protectedProcedure.query(async ({ ctx, input }) => {
+    const events = await ctx.prisma.citas.findMany({
+      where: {
+        userId: ctx.session.user.id,
+      },
+      select: {
+        titulo: true,
+        fecha: true,
+        hora: true,
+        id: true,
+      },
+    });
+
+    return { success: true, events };
+  }),
+  createEvent: protectedProcedure
+    .input(
+      z.object({
+        pacienteId: z.any(),
+        titulo: z.string(),
+        hora: z.string(),
+        fecha: z.date(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const event = await ctx.prisma.citas.create({
+        data: {
+          pacienteId: input.pacienteId,
+          titulo: input.titulo,
+          fecha: input.fecha,
+          hora: input.hora,
+          userId: ctx.session.user.id,
+        },
+        select: {
+          titulo: true,
+        },
       });
-      return {
-        success: true,
-        calendar,
-      };
+      return { success: true, data: event };
+    }),
+  updateEvent: protectedProcedure
+    .input(
+      z.object({
+        eventId: z.string(),
+        fecha: z.date(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      await ctx.prisma.citas.update({
+        where: {
+          id: input.eventId,
+        },
+        data: {
+          fecha: input.fecha,
+        },
+      });
+
+      return { success: true };
     }),
 });
