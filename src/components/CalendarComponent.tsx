@@ -24,12 +24,9 @@ const CalendarComponent: React.FC<{
   };
 
   const updateCalendarMutation = trpc.token.updateEvent.useMutation();
-
+  const { refetch } = trpc.token.getEvents.useQuery();
+  const queryName = trpc.token.getEvents.useQuery.name;
   const onEventDrop = (evt: EventDropArg) => {
-    // id?: string | undefined;
-    // titulo: string;
-    // fecha: Date;
-    // hora: string;
     if (evt.event) {
       const newEvent = {
         id: evt.event.id,
@@ -40,7 +37,6 @@ const CalendarComponent: React.FC<{
       setEvents((values) =>
         values?.map((value) => (value.id === evt.event.id ? newEvent : value))
       );
-      console.log(events);
     }
     updateCalendarMutation.mutate(
       {
@@ -49,7 +45,7 @@ const CalendarComponent: React.FC<{
       },
       {
         onSettled(data) {
-          console.log(data);
+          data && refetch({ exact: true, queryKey: [queryName] });
         },
       }
     );
