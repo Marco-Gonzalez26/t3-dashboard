@@ -39,8 +39,8 @@ export const AddEventForm: React.FC<{
     createEvent.mutate(
       {
         fecha: date!,
-        hora: data.hora,
-        titulo: data.titulo,
+        hora: data.hora!,
+        titulo: data.titulo!,
         pacienteId: data.pacienteId,
       },
       {
