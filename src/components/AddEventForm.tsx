@@ -28,9 +28,10 @@ export const AddEventForm: React.FC<{
     handleSubmit,
     formState: { errors },
   } = useForm<Event>({ resolver });
-  const createEvent = trpc.token.createEvent.useMutation();
-  const { refetch } = trpc.token.getEvents.useQuery();
-  const queryName = trpc.token.getEvents.useQuery.name;
+  
+  const createEvent = trpc.calendar.createEvent.useMutation();
+  const { refetch } = trpc.calendar.getEvents.useQuery();
+  const queryName = trpc.calendar.getEvents.useQuery.name;
   const onSubmit = handleSubmit(async (data) => {
     let date: Date;
     if (eventDate) {

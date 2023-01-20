@@ -17,7 +17,7 @@ const Calendario = () => {
     data: eventsData,
     isLoading: eventsLoading,
     error: eventsError,
-  } = trpc.token.getEvents.useQuery();
+  } = trpc.calendar.getEvents.useQuery();
 
   useEffect(() => {
     if (!eventsLoading) {

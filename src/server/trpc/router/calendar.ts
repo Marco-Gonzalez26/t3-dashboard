@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import { router, protectedProcedure } from "../trpc";
 
-export const tokenRouter = router({
+export const calendarRouter = router({
   getToken: protectedProcedure.query(async ({ ctx }) => {
     const userId = await ctx.session.user.id;
     const accessToken = await ctx.prisma.account.findFirst({
@@ -73,6 +73,17 @@ export const tokenRouter = router({
         },
         data: {
           fecha: input.fecha,
+        },
+      });
+
+      return { success: true };
+    }),
+  deleteEvent: protectedProcedure
+    .input(z.string())
+    .mutation(async ({ ctx, input }) => {
+      await ctx.prisma.citas.delete({
+        where: {
+          id: input,
         },
       });
 

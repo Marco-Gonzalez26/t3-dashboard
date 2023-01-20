@@ -17,7 +17,6 @@ export const setToken = (newToken?: string| null) => {
   token = newToken;
 };
 
-console.log({ token });
 export const trpc = createTRPCNext<AppRouter>({
   config() {
     return {
